@@ -46,7 +46,7 @@ const RegisterationForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    var regx=/^([a-zA-Z0-9\._]+)@([a-zA-Z0-9])+.([a-z]+)(.[a-z]+)?$/;
+    var regx=/^([a-zA-Z0-9._]+)@([a-zA-Z0-9])+.([a-z]+)(.[a-z]+)?$/;
 
     if(!regx.test(email)) {
       toast.error("Please Enter proper Email !", {

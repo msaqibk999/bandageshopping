@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import styles from "../cssModules/LandingPage.module.css";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import { AllProductsComponent } from "./AllProductsComponent";
 import { SingleProductPage } from "./SingleProductPage";
@@ -27,13 +26,11 @@ async function getUser(token) {
 export const CartContext = createContext({});
 
 export const LandingPage = () => {
-  const [userImg, setUser] = useState(null);
+  const [userImg, setUserImg] = useState(null);
   let [cartItems, setCartItems] = useState([]);
 
-  const navigate = useNavigate();
-
   const pull_data = (data) => {
-    setUser(data);
+    setUserImg(data);
   };
 
   const loggedIn = async (data) => {
@@ -43,7 +40,7 @@ export const LandingPage = () => {
       })
       .catch((e) => e);
     if (userDetails.status === "Blocked") {
-      setUser(null);
+      setUserImg(null);
       cookies.remove("jwt-authorization", {
         path: "/",
         domain: "localhost",
@@ -53,7 +50,8 @@ export const LandingPage = () => {
     }
 
     if (userDetails.status === "success") {
-      setUser(userDetails.data[0].meta.image);
+      if(userDetails.data[0].meta)
+      setUserImg(userDetails.data[0].meta.image);
     }
   };
 
@@ -87,13 +85,17 @@ export const LandingPage = () => {
           </Link>
           <div className={styles.icons}>
             <div>
-              {userImg ? (
+              {GetToken() ? (
                   <Link to="/home/id">
-                  <img
+                  {userImg ? (
+                    <img
                     src={userImg}
                     alt="dp"
                     className={styles.image}
                   />
+                  ):(
+                    <i className={`fa fa-user`} style={{fontSize:"2rem", color:"black", marginTop:"0.4rem" }}></i>
+                  )}                  
                   </Link>
               ) : (
                 <div className={styles.notLogged}>
@@ -184,13 +186,17 @@ export const LandingPage = () => {
               )}
             <Link to="/home/cart"><i className={`fa fa-shopping-cart`}></i></Link>
             </div>
-            {userImg ? (
+            {GetToken() ? (
               <Link to="/home/id">
+                {userImg ? (
                   <img
-                    src={userImg}
-                    alt="dp"
-                    className={styles.bottomImage}
-                  />
+                  src={userImg}
+                  alt="dp"
+                  className={styles.bottomImage}
+                />
+                ) : (
+                  <i className={`fa fa-user ${styles.bottomIcon}`} style={{ marginRight: 8 }}></i>
+                )}
                   </Link>
               ) : (
                 <Link to="/login" className={styles.bottomLoginLink}>

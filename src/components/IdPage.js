@@ -21,7 +21,11 @@ export const IdPage = (props) => {
   const cookies = new Cookies();
 
   const handleEditProfile = () => {
-    navigate("/home/edit",{ state: { img:user.meta.image, name:user.firstName + " " + user.lastName, phone:user.phone, email:user.email } });
+    navigate("/home/edit",{ state: { 
+      img:user?.meta?.image || 'https://t3.ftcdn.net/jpg/00/61/77/60/360_F_61776002_ZEbc9JEvvE0zqyVPwK0u0R9AkH7Mc0s1.jpg', 
+      name:user.firstName + " " + user.lastName, 
+      phone:user.phone, 
+      email:user.email } });
   }
 
   const loggedIn = async (token) => {
@@ -67,7 +71,7 @@ export const IdPage = (props) => {
         {user ? (
           <div className={styles.profile}>
             <div>
-              <img src={user.meta.image} alt="dp" className={styles.image} />
+              <img src={user?.meta?.image || 'https://t3.ftcdn.net/jpg/00/61/77/60/360_F_61776002_ZEbc9JEvvE0zqyVPwK0u0R9AkH7Mc0s1.jpg'} alt="dp" className={styles.image} />
             </div>
             <div className={styles.details}>
               <strong className={styles.name}>

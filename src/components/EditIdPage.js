@@ -59,7 +59,7 @@ export const EditIdPage = (props) => {
           url = imgP;
         }
          
-        var regx=/^([a-zA-Z0-9\._]+)@([a-zA-Z0-9])+.([a-z]+)(.[a-z]+)?$/;
+        var regx=/^([a-zA-Z0-9._]+)@([a-zA-Z0-9])+.([a-z]+)(.[a-z]+)?$/;
           if(email){
           if(!regx.test(email)) {
             toast.error("Please Enter proper Email !", {
