@@ -1,4 +1,5 @@
 import { GetToken } from "./GetToken";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export const GetCart = async () => {
  
@@ -6,7 +7,7 @@ export const GetCart = async () => {
   const token = GetToken()
   
 
-  await fetch("http://localhost:4000/cart/get-cart", {
+  await fetch(baseUrl+"/cart/get-cart", {
     headers: { "Content-Type": "application/json","token":token },
   })
     .then((response) => {
@@ -16,8 +17,11 @@ export const GetCart = async () => {
       if(result.status === "Blocked"){
         cart =[]
       }
-      if(result.status === "success")
-      cart = result.cart;
+      if(result.status === "success"){
+        const event = new CustomEvent('cartLoaded');
+        window.dispatchEvent(event);
+        cart = result.cart;
+      }
     });
   return cart;
 };

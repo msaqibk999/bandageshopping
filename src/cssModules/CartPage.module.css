@@ -1,20 +1,32 @@
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 100vw;
+}
 .homebtn{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 7em;
+    width: 8em;
     font-size: 1.3em;
     cursor: pointer;
+    margin: 2rem 0 0 8rem;
 }
-.mainContainer{
+.subContainer{
     display: flex;
-    flex-direction: row;
+    width: 100%;
+    justify-content: center;
 }
 .cartContainer{
     display: flex;
     flex-direction: column;
     margin-top: 2em;
 }
+.empty{
+    width: 38.8vw;
+}
+
 .image{
     width: 5em;
     height: 7em;
@@ -84,6 +96,8 @@
 .head{
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
     width: 8em;
     margin-bottom: 2em;
 }
@@ -97,8 +111,7 @@
 .orderContainer{
     position: sticky;
     top: 4em;
-    margin-left: 4em;
-    margin-top: 6em;
+    margin: 4em 0 0 4rem;
     width: 30em;
     height: 35em;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -175,16 +188,37 @@
     text-align: center;
     padding: 0.5em 2em 0em 2em;
 }
+.loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+  }
+  
+  .loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 @media screen and (max-width:910px) {
+    .homebtn{
+        margin: 1.5rem 0rem 0rem 2rem;
+    }
     .head{
         margin-bottom: 1.5rem;
     }
     .orderContainer{
-        margin-top: 1rem;
         width: 20rem;
         height: 30rem;
-        margin-left: 0rem;
         padding: 0rem 0.5rem;
     }
     .product{
@@ -200,6 +234,7 @@
     }
     .buttons{
         flex-direction: column;
+        width: 7rem;
     }
     .quantity{
         margin-bottom: 0.5rem;
@@ -221,10 +256,12 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .mainContainer{
-        display: flex;
+    .subContainer{
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+    .orderContainer{
+        margin: 1rem 0 0 0;
     }
   }

@@ -4,28 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { GetToken } from "../utils/GetToken";
 import Cookies from "universal-cookie";
 import { CartContext } from "./LandingPage";
-
-async function postIntoCart(data, token) {
-  const res = await fetch("http://localhost:4000/cart/add-to-cart", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: { "Content-Type": "application/json", token: token },
-  });
-
-  const data1 = await res.json();
-  return data1;
-}
-
-async function deleteFromCart(data, token) {
-  const res = await fetch("http://localhost:4000/cart/delete-product", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: { "Content-Type": "application/json", token: token },
-  });
-
-  const data1 = await res.json();
-  return data1;
-}
+import { postIntoCart, deleteFromCart } from "../utils/Cart";
 
 export const Card = (props) => {
   const item = props.product;
@@ -33,6 +12,7 @@ export const Card = (props) => {
 
   const [text, setText] = useState("Add");
   const [cls, setCls] = useState("addbtn");
+  const [isLoading, setIsLoading] = useState(false);
   let { cartItems, setCartItems } = useContext(CartContext);
 
   const navigate = useNavigate();
@@ -64,6 +44,7 @@ export const Card = (props) => {
 
   const handleButtonClick = async (event, item) => {
     event.stopPropagation();
+    setIsLoading(true);
     const token = GetToken();
     if (!token) {
       cookies.remove("jwt-authorization", {
@@ -90,6 +71,7 @@ export const Card = (props) => {
       if (result === "success") {
         setCls("removebtn");
         setText("Remove");
+        setIsLoading(false);
         setCartItems([...cartItems, item]);
       }
     }
@@ -111,6 +93,7 @@ export const Card = (props) => {
       if (result === "success") {
         setCls("addbtn");
         setText("Add");
+        setIsLoading(false);
         setCartItems(cartItems.filter((product) => product.id !== item.id));
       }
     }
@@ -126,7 +109,11 @@ export const Card = (props) => {
         className={cls}
         onClick={(event) => handleButtonClick(event, item)}
       >
-        {text}
+        {isLoading ? (
+          <div className={styles.loaderContainer}>
+            <div className={styles.loader}></div>
+          </div>
+        ):(text)}
       </button>
     </div>
   );

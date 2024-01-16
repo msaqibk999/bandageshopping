@@ -3,17 +3,21 @@ import { GetCart } from "../utils/GetCart";
 import { GetToken } from "../utils/GetToken";
 import { Card } from "./Card";
 import { CartContext } from "./LandingPage";
+import Loader from "./Loader";
 
 
 
 export const AllProductsComponent = () => {
   const { setCartItems } = useContext(CartContext);
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
   
   useEffect(() => {
-    fetch("http://localhost:4000/product/get-list")
+    fetch(baseUrl+"/product/get-list")
       .then((response) => response.json())
       .then((result) => {
+        setIsLoading(false)
         setProducts(result.products);
       });
   }, []);
@@ -37,5 +41,11 @@ export const AllProductsComponent = () => {
     </div>
   ));
 
-  return <>{productList}</>;
+  return <>
+  {isLoading ? (
+    <div style={{minHeight:"70rem"}}><Loader /></div>
+  ):(
+   <>{productList}</>
+  )}
+  </>;
 };

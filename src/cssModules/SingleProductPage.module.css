@@ -1,9 +1,10 @@
 .main_container{
     display: flex;
     flex-direction: column;
-    align-items: left;
-    justify-content: left;
     margin-bottom: 5em;
+    box-sizing: border-box;
+    padding: 0 2rem;
+    width: 100vw;
 }
 .homebtn{
     display: flex;
@@ -11,11 +12,15 @@
     justify-content: space-between;
     width: 7em;
     font-size: 1.3em;
-    margin-top: 3em;
+    margin: 1.5em 0 0 6rem;
     cursor: pointer;
 }
 .list_container{
     margin-top: 5em;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .image{
     width: auto;
@@ -94,8 +99,8 @@
 }
 .mini{
     height: 100px;
-    width: 75px;
-    margin-right: 0.5em;
+    width: 65px;
+    cursor: pointer;
 }
 .belowIcons{
     cursor: pointer;
@@ -106,7 +111,33 @@
 .product{
     display: flex;
     flex-direction: row;
+    width: fit-content;
 }
+.miniImgContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+  }
+  
+  .loader {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    width: 11px;
+    height: 11px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 @media screen and (max-width: 1024px) {
     .product{
@@ -122,8 +153,11 @@
   }
 
 @media screen and (max-width:910px) {
+    .main_container{
+        padding: 0;
+    }
     .homebtn{
-        margin-top: 1.5rem;
+        margin: 1.5rem 0rem 2rem 2rem
     }
     .list_container{
         margin-top: 2.5rem;
@@ -133,7 +167,7 @@
         height: 230px;
     }
     .mini{
-        width: 55px;
+        width: 50px;
         height: 80px;
     }
     .details{

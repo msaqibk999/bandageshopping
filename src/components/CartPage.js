@@ -4,21 +4,13 @@ import { useNavigate, Link } from "react-router-dom";
 import { GetToken } from "../utils/GetToken";
 import Cookies from "universal-cookie";
 import { CartContext } from "./LandingPage";
+import Loader from "./Loader";
+import { deleteFromCart } from "../utils/Cart";
 
-
-async function deleteFromCart(data, token) {
-  const res = await fetch("http://localhost:4000/cart/delete-product", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: { "Content-Type": "application/json", "token":token },
-  });
-
-  const data1 = await res.json();
-  return data1;
-}
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 async function deleteCart(token) {
-  const res = await fetch("http://localhost:4000/cart/delete-cart", {
+  const res = await fetch(baseUrl+"/cart/delete-cart", {
     headers: { "Content-Type": "application/json", "token":token},
   });
 
@@ -27,7 +19,7 @@ async function deleteCart(token) {
 }
 
 async function updateQuantity(data, token) {
-  const res = await fetch("http://localhost:4000/cart/update-quantity", {
+  const res = await fetch(baseUrl+"/cart/update-quantity", {
     method: "POST",
     body: JSON.stringify(data),
     headers: { "Content-Type": "application/json", "token":token },
@@ -38,9 +30,12 @@ async function updateQuantity(data, token) {
 }
 
 async function placeOrder(token) {
-  const res = await fetch("http://localhost:4000/order/place", {
-    headers: { "Content-Type": "application/json", "token":token },
+  const res = await fetch(baseUrl+"/order/place", {
+    method: "POST",
+    body: "",
+    headers: { "Content-Type": "application/json", token: token },
   });
+
   const data1 = await res.json();
   return data1;
 }
@@ -52,14 +47,17 @@ export const CartPage = () => {
 
   const [vat, setVat] = useState(0);
   const [state, setState] = useState(true);
-  const { cartItems, setCartItems } = useContext(CartContext);
-
-
+  const [Loading, setLoading] = useState(true);
+  const [orderTotal, SetOrderTotal] = useState(0);
+  const [placingOrder, setIsPlacingOrder] = useState(false);
+  const { cartItems, setCartItems, isCartLoading } = useContext(CartContext);
   const token = GetToken();
   const navigate = useNavigate();
 
-  //const [products, setProducts] = useState([]);
-  const [orderTotal, SetOrderTotal] = useState(0);
+  useEffect(() => {
+    if(isCartLoading === false) setLoading(false)
+  }, [isCartLoading]);
+
 
   useEffect(() => {
     if (cartItems.length === 0) {
@@ -119,6 +117,7 @@ export const CartPage = () => {
   };
 
   const handlePlaceOrder = async (event) => {
+    setIsPlacingOrder(true);
     let id = 0;
     const result = await placeOrder(token).then((res) => {
       id = res.id;
@@ -133,10 +132,13 @@ export const CartPage = () => {
       const result2 = await deleteCart(token).then((res) => res.status);
       if (result2 === "success") {
         setState(!state);
+        setIsPlacingOrder(false)
         setCartItems([])
+        
         navigate("/home/order", { state: { id, status: true } });
       } else {
         setState(!state);
+        setIsPlacingOrder(false)
         navigate("/home/order", { state: { id: null, status: false } });
       }
     }
@@ -194,66 +196,75 @@ export const CartPage = () => {
   return (
     <>
       <div className={styles.mainContainer}>
-        <div className={styles.cartContainer}>
-          <div className={styles.homebtn}>
+      <div className={styles.homebtn}>
            <Link className="link" to="/home"> <strong>Home</strong> </Link>
-            <div className={styles.head}>
-              <i className="fa fa-chevron-right" style={{ marginLeft: 15 }}></i>
-              MyCart
-            </div>
+          <div className={styles.head}>
+            <i className="fa fa-chevron-right" style={{ marginLeft: 15 }}></i>
+            &nbsp; MyCart
           </div>
-          {GetToken() ? (
-            <div> 
-              {cartItems.length ? (
-            <div>{productList}</div>
-          ) : (
-            <div><strong>Please add some products to cart</strong></div>
-          )}
-            </div>
-          ):(
-            <div>
-             <strong>Please login to add products!</strong>   
-            </div>
-          )}
-          
         </div>
-        <div className={styles.orderContainer}>
-          <h3 className={styles.highlight}>Order Summary</h3>
-          <div className={styles.discountContainer}>
-            <span style={{ color: "grey" }}>Discount code:</span>
-            <div className={styles.discount}>
-              <input placeholder="SAVE20" className={styles.codeInput} />
-              <button className={styles.applybtn}>Apply</button>
+        <div className={styles.subContainer}>
+            <div className={styles.cartContainer}>
+              {GetToken() ? (
+                Loading ? (
+                  <div className={styles.empty}><Loader /></div>
+                ) : 
+                (
+                    <div> 
+                      {cartItems.length ? (
+                      <div className={styles.productsContainer}>{productList}</div>
+                  ) : (
+                    <div className={styles.empty}><strong>Please add some products to cart</strong></div>
+                  )}
+                    </div>
+                )
+                  ):(
+                    <div className={styles.empty}><strong>Please login to add products!</strong></div>
+              )}
+              
             </div>
-          </div>
-          <div className={styles.orderDetails}>
-            <div className={styles.orderData}>
-              <span>Order Value</span>
-              <span>${orderTotal}</span>
+                <div className={styles.orderContainer}>
+              <h3 className={styles.highlight}>Order Summary</h3>
+              <div className={styles.discountContainer}>
+                <span style={{ color: "grey" }}>Discount code:</span>
+                <div className={styles.discount}>
+                  <input placeholder="SAVE20" className={styles.codeInput} />
+                  <button className={styles.applybtn}>Apply</button>
+                </div>
+              </div>
+              <div className={styles.orderDetails}>
+                <div className={styles.orderData}>
+                  <span>Order Value</span>
+                  <span>${orderTotal}</span>
+                </div>
+                <div className={styles.orderData}>
+                  <span>VAT</span>
+                  <span>${vat}</span>
+                </div>
+                <div className={styles.orderData}>
+                  <span>Total before discount</span>
+                  <span>${orderTotal + vat}</span>
+                </div>
+                <div className={styles.orderData}>
+                  <span className={styles.highlight}>TOTAL</span>
+                  <span className={styles.highlight}>${orderTotal + vat}</span>
+                </div>
+              </div>
+              <button
+                className={styles.placeOrderBtn}
+                onClick={(event) => handlePlaceOrder(event)}
+                ref={ref}
+              >
+                {placingOrder ? (
+                  <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
+                  </div>
+                ):("Place Order")}
+              </button>
+              <span className={styles.notice}>
+                *Custom orders need a few working days to be created. More info here
+              </span>
             </div>
-            <div className={styles.orderData}>
-              <span>VAT</span>
-              <span>${vat}</span>
-            </div>
-            <div className={styles.orderData}>
-              <span>Total before discount</span>
-              <span>${orderTotal + vat}</span>
-            </div>
-            <div className={styles.orderData}>
-              <span className={styles.highlight}>TOTAL</span>
-              <span className={styles.highlight}>${orderTotal + vat}</span>
-            </div>
-          </div>
-          <button
-            className={styles.placeOrderBtn}
-            onClick={(event) => handlePlaceOrder(event)}
-            ref={ref}
-          >
-            Place Order
-          </button>
-          <span className={styles.notice}>
-            *Custom orders need a few working days to be created. More info here
-          </span>
         </div>
       </div>
     </>

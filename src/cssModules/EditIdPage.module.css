@@ -5,8 +5,7 @@
     margin-left: 8em;
     font-size: 1.3em;
     cursor: pointer;
-    margin-top: 2em;
-    margin-right: 30em;
+    margin: 2rem 0 0 8rem;
 }
 .input{
     background-color: white;
@@ -17,10 +16,10 @@
     flex-direction: column;
     align-items: left;
     width: 100vw;
+    overflow: hidden;
 }
 .profile{
     height: 25em;
-    max-width: 100em;
     margin-top: 2.5em;
     display: flex;
     padding: 2em 0em 0em 4em;

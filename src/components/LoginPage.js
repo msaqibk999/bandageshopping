@@ -6,8 +6,10 @@ import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 async function getToken(data) {
-  const res = await fetch("http://localhost:4000/auth/login", {
+  const res = await fetch(baseUrl+"/auth/login", {
     method: "POST",
     body: JSON.stringify(data),
     headers: { "Content-Type": "application/json" },

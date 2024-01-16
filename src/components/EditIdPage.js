@@ -7,9 +7,10 @@ import { GetToken } from '../utils/GetToken';
 import { storage } from '../firebase';
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 async function updateUser(data, token) {
-    const res = await fetch("http://localhost:4000/user/update", {
+    const res = await fetch(baseUrl+"/user/update", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json", "token":token },
@@ -151,7 +152,7 @@ export const EditIdPage = (props) => {
           <Link className='link' to="/home"><strong>Home</strong></Link>
           <div className={styles.head}>
             <i className="fa fa-chevron-right" style={{ marginLeft: 15 }}></i>
-            Profile
+            &nbsp; Profile
           </div>
         </div>
         {GetToken() ? (

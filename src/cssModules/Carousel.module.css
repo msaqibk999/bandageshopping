@@ -1,0 +1,66 @@
+.carousel{
+    margin: 1.5rem 0 0 -0.3rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16rem;
+}
+
+.mainContainer{
+    background-color: transparent;
+    position: relative;
+    overflow: hidden;
+    width: 40%;
+    height: 100%;
+}
+
+
+.container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.slide{
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.btn{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    color: grey;
+    background-color: transparent;
+    font-size: 2rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn:hover{
+    transition: 0.3s ease-in-out;
+    color: #FFB400;
+}
+
+.before{
+    left: 5%;
+}
+
+.after{
+    right: 5%;
+}
+
+@media screen and (max-width:1024px) {
+    .carousel{
+        width: 10rem;
+    }
+    .btn{
+        font-size: 2rem;
+    }
+}

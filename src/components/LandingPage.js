@@ -14,9 +14,10 @@ import Cookies from "universal-cookie";
 import { GetCart } from "../utils/GetCart";
 
 const cookies = new Cookies();
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 async function getUser(token) {
-  const res = await fetch("http://localhost:4000/user/get-by-id", {
+  const res = await fetch(baseUrl+"/user/get-by-id", {
     headers: { "Content-Type": "application/json", token: token },
   });
   const data1 = await res.json();
@@ -27,6 +28,7 @@ export const CartContext = createContext({});
 
 export const LandingPage = () => {
   const [userImg, setUserImg] = useState(null);
+  const [isCartLoading, SetIsCartLoading] = useState(true);
   let [cartItems, setCartItems] = useState([]);
 
   const pull_data = (data) => {
@@ -66,8 +68,8 @@ export const LandingPage = () => {
     (async () => {
       if (GetToken()) {
         await GetCart().then((res) => {
+          SetIsCartLoading(false);
           setCartItems(res);
-
           return res;
         });
       }
@@ -118,7 +120,7 @@ export const LandingPage = () => {
           </div>
         </nav>
         <div className={styles.productsContainer}>
-          <CartContext.Provider value={{ cartItems, setCartItems }}>
+          <CartContext.Provider value={{ cartItems, setCartItems, isCartLoading }}>
             <ScrollToTop>
               <Routes>
                 <Route path="/" element={<AllProductsComponent />} />

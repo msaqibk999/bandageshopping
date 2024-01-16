@@ -3,7 +3,6 @@
     top: 0;
     left: 0;
     right: 0;
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,7 +13,11 @@
     background-color: white;
     z-index: 1;
 }
-
+.productsContainer{
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 1rem 0 0 0;
+}
 .displayFooter{
     display: block;
 }
@@ -66,7 +69,6 @@ footer{
     right: 0;
     display: flex;
     flex-direction: column;
-    width: 100%;
     height: 25em;
     color: white;
     background-color: #171934;
@@ -213,10 +215,6 @@ th,td{
     .nav{
         justify-content: center;
     }
-    .productsContainer{
-        margin-bottom: 4.5rem;
-        margin-left: 1rem;
-    }
     .cartIcon{
         margin-left: 3rem;
         font-size: 2rem;
@@ -243,7 +241,7 @@ th,td{
 
 @media screen and (max-width: 1024px) {
     .productsContainer{
-        
+        padding: 1rem 0rem 4rem 0rem;
         display: grid;
         grid-template-columns: auto auto;
         justify-content: center;

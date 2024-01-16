@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 async function postData(data) {
-  const res = await fetch("http://localhost:4000/auth/register", {
+  const res = await fetch(baseUrl+"/auth/register", {
     method: "POST",
     body: JSON.stringify(data),
     headers: { "Content-Type": "application/json" },
