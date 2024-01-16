@@ -135,16 +135,16 @@ export const CartPage = () => {
         setIsPlacingOrder(false)
         setCartItems([])
         
-        navigate("/home/order", { state: { id, status: true } });
+        navigate("/order", { state: { id, status: true } });
       } else {
         setState(!state);
         setIsPlacingOrder(false)
-        navigate("/home/order", { state: { id: null, status: false } });
+        navigate("/order", { state: { id: null, status: false } });
       }
     }
     if(result === "fail") {
       setState(!state);
-      navigate("/home/order", { state: { id: null, status: false } });
+      navigate("/order", { state: { id: null, status: false } });
     }
   };
   
@@ -197,7 +197,7 @@ export const CartPage = () => {
     <>
       <div className={styles.mainContainer}>
       <div className={styles.homebtn}>
-           <Link className="link" to="/home"> <strong>Home</strong> </Link>
+           <Link className="link" to="/"> <strong>Home</strong> </Link>
           <div className={styles.head}>
             <i className="fa fa-chevron-right" style={{ marginLeft: 15 }}></i>
             &nbsp; MyCart

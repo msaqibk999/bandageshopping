@@ -66,7 +66,7 @@ const LoginForm = () => {
         position: toast.POSITION.TOP_RIGHT,
       });
 
-      navigate("/home");
+      navigate("/");
       return;
     }
 

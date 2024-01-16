@@ -20,7 +20,7 @@ export const SingleProductPage = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const goToHome = () => {
-    navigate("/home");
+    navigate("/");
   };
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -61,7 +61,7 @@ export const SingleProductPage = () => {
   };
 
   const goToCart = () => {
-    navigate("/home/cart");
+    navigate("/cart");
   };
 
   const handleButtonClick = async (event, item) => {

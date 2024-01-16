@@ -80,7 +80,7 @@ export const LandingPage = () => {
     <>
       <div className={styles.body}>
         <nav className={styles.nav}>
-          <Link className="link" to="/home">
+          <Link className="link" to="/">
           <strong className={styles.logo}>
             Bandage
           </strong>
@@ -88,7 +88,7 @@ export const LandingPage = () => {
           <div className={styles.icons}>
             <div>
               {GetToken() ? (
-                  <Link to="/home/id">
+                  <Link to="/id">
                   {userImg ? (
                     <img
                     src={userImg}
@@ -115,7 +115,7 @@ export const LandingPage = () => {
               ) : (
                 <div></div>
               )}
-              <Link className="link" to="/home/cart"><i className={`fa fa-shopping-cart`}></i></Link>
+              <Link className="link" to="/cart"><i className={`fa fa-shopping-cart`}></i></Link>
             </div>
           </div>
         </nav>
@@ -179,17 +179,17 @@ export const LandingPage = () => {
         </footer>
         <div className={styles.displayBottomNav}>
           <div className={styles.mobileBottomNaveContainer}>
-            <Link to="/home"><i className={`fa fa-home ${styles.bottomHomeIcon}`} aria-hidden="true"></i></Link>
+            <Link to="/"><i className={`fa fa-home ${styles.bottomHomeIcon}`} aria-hidden="true"></i></Link>
             <div className={styles.cartIcon}>
               {cartItems.length ? (
                 <div className={styles.number}>{cartItems.length}</div>
               ) : (
                 <div></div>
               )}
-            <Link to="/home/cart"><i className={`fa fa-shopping-cart`}></i></Link>
+            <Link to="/cart"><i className={`fa fa-shopping-cart`}></i></Link>
             </div>
             {GetToken() ? (
-              <Link to="/home/id">
+              <Link to="/id">
                 {userImg ? (
                   <img
                   src={userImg}

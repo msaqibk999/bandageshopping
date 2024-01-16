@@ -13,7 +13,7 @@ export const OrderPage = ( ) => {
     const id = location.state.id;
 
     const handleButtonClick = () => {
-        navigate("/home/cart");
+        navigate("/cart");
     }
 
   return (

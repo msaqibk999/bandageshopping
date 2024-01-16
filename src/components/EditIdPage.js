@@ -100,7 +100,7 @@ export const EditIdPage = (props) => {
       });
 
       props.func(url);
-      navigate("/home/id")
+      navigate("/id")
     }
     if (result === "Blocked") {
       alert("Session Expired Please login")
@@ -149,7 +149,7 @@ export const EditIdPage = (props) => {
     <>
     <div className={styles.mainContainer}>
         <div className={styles.homebtn}>
-          <Link className='link' to="/home"><strong>Home</strong></Link>
+          <Link className='link' to="/"><strong>Home</strong></Link>
           <div className={styles.head}>
             <i className="fa fa-chevron-right" style={{ marginLeft: 15 }}></i>
             &nbsp; Profile
@@ -197,7 +197,7 @@ export const EditIdPage = (props) => {
               </form>
               <div className={styles.btns}>
                 <button className={styles.editbtn} onClick={() => handleSubmit()}>Save Changes</button>
-                <Link className='link' to="/home/id"><button className={styles.logoutbtn}>
+                <Link className='link' to="/id"><button className={styles.logoutbtn}>
                   Cancel
                 </button>
                 </Link>

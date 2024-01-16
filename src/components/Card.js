@@ -39,7 +39,7 @@ export const Card = (props) => {
 
   const handlePoductClick = (item) => {
     const id = item.id;
-    navigate("/home/product/" + id);
+    navigate("/product/" + id);
   };
 
   const handleButtonClick = async (event, item) => {

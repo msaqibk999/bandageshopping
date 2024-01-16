@@ -24,7 +24,7 @@ export const IdPage = (props) => {
   const cookies = new Cookies();
 
   const handleEditProfile = () => {
-    navigate("/home/edit",{ state: { 
+    navigate("/edit",{ state: { 
       img:user?.meta?.image || 'https://t3.ftcdn.net/jpg/00/61/77/60/360_F_61776002_ZEbc9JEvvE0zqyVPwK0u0R9AkH7Mc0s1.jpg', 
       name:user.firstName + " " + user.lastName, 
       phone:user.phone, 
@@ -53,7 +53,7 @@ export const IdPage = (props) => {
     toast.success("Log out successful !", {
       position: toast.POSITION.TOP_RIGHT,
     });
-     navigate("/home");
+     navigate("/");
   };
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export const IdPage = (props) => {
     <>
       <div className={styles.mainContainer}>
         <div className={styles.homebtn}>
-          <Link className="link" to="/home"><strong>Home</strong></Link>
+          <Link className="link" to="/"><strong>Home</strong></Link>
           <div className={styles.head}>
             <i className="fa fa-chevron-right" style={{ marginLeft: 15 }}></i>
             &nbsp; Profile
