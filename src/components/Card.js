@@ -5,6 +5,7 @@ import { GetToken } from "../utils/GetToken";
 import Cookies from "universal-cookie";
 import { CartContext } from "./LandingPage";
 import { postIntoCart, deleteFromCart } from "../utils/Cart";
+import Loader from "./Loader";
 
 export const Card = (props) => {
   const item = props.product;
@@ -48,8 +49,8 @@ export const Card = (props) => {
     const token = GetToken();
     if (!token) {
       cookies.remove("jwt-authorization", {
-        path: "/",
-        domain: "localhost",
+        path: "/bandageshopping",
+        domain: window.location.hostname,
       });
       alert("Please login to add products!");
       navigate("/login");
@@ -62,8 +63,8 @@ export const Card = (props) => {
       const result = await postIntoCart(data, token).then((res) => res.status);
       if (result === "Blocked") {
         cookies.remove("jwt-authorization", {
-          path: "/",
-          domain: "localhost",
+          path: "/bandageshopping",
+          domain: window.location.hostname,
         });
         alert("Session Expired Please login again");
         navigate("/login");
@@ -84,8 +85,8 @@ export const Card = (props) => {
       );
       if (result === "Blocked") {
         cookies.remove("jwt-authorization", {
-          path: "/",
-          domain: "localhost",
+          path: "/bandageshopping",
+          domain: window.location.hostname,
         });
         alert("Session Expired Please login again");
         navigate("/login");
@@ -110,9 +111,7 @@ export const Card = (props) => {
         onClick={(event) => handleButtonClick(event, item)}
       >
         {isLoading ? (
-          <div className={styles.loaderContainer}>
-            <div className={styles.loader}></div>
-          </div>
+          <Loader containerHeight="0.78rem" loaderSize="0.9rem" borderSize="0.2rem"/>
         ):(text)}
       </button>
     </div>

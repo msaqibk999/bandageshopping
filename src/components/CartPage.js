@@ -53,6 +53,7 @@ export const CartPage = () => {
   const { cartItems, setCartItems, isCartLoading } = useContext(CartContext);
   const token = GetToken();
   const navigate = useNavigate();
+  const loaderContainerLength = window.innerWidth <= 1024 ? '100vw' : '40vw';
 
   useEffect(() => {
     if(isCartLoading === false) setLoading(false)
@@ -86,7 +87,7 @@ export const CartPage = () => {
     };
     const result = await updateQuantity(data, token).then((res) => res.status);
     if(result === "Blocked"){
-      cookies.remove("jwt-authorization", { path: "/", domain: "localhost" });
+      cookies.remove("jwt-authorization", { path: "/bandageshopping", domain: window.location.hostname });
       alert("Session Expired Please login again")
       navigate("/login");
     }
@@ -106,7 +107,7 @@ export const CartPage = () => {
     };
     const result = await deleteFromCart(data, token).then((res) => res.status);
     if(result === "Blocked"){
-      cookies.remove("jwt-authorization", { path: "/", domain: "localhost" });
+      cookies.remove("jwt-authorization", { path: "/bandageshopping", domain: window.location.hostname });
       alert("Session Expired Please login again")
       navigate("/login");
     }
@@ -124,7 +125,7 @@ export const CartPage = () => {
       return res.status;
     });
     if(result === "Blocked"){
-      cookies.remove("jwt-authorization", { path: "/", domain: "localhost" });
+      cookies.remove("jwt-authorization", { path: "/bandageshopping", domain: window.location.hostname });
       alert("Session Expired Please login again")
       navigate("/login");
     }
@@ -207,19 +208,19 @@ export const CartPage = () => {
             <div className={styles.cartContainer}>
               {GetToken() ? (
                 Loading ? (
-                  <div className={styles.empty}><Loader /></div>
+                  <div className={styles.empty}>
+                    <Loader containerHeight={loaderContainerLength} loaderSize="2.5rem" borderSize="0.4rem" />
+                  </div>
                 ) : 
                 (
-                    <div> 
-                      {cartItems.length ? (
+                      cartItems.length ? (
                       <div className={styles.productsContainer}>{productList}</div>
                   ) : (
-                    <div className={styles.empty}><strong>Please add some products to cart</strong></div>
-                  )}
-                    </div>
+                    <div className={styles.empty}><h1>Please add some products to cart</h1></div>
+                  )
                 )
                   ):(
-                    <div className={styles.empty}><strong>Please login to add products!</strong></div>
+                    <div className={styles.empty}><h1>Please login to add products!</h1></div>
               )}
               
             </div>
@@ -256,9 +257,7 @@ export const CartPage = () => {
                 ref={ref}
               >
                 {placingOrder ? (
-                  <div className={styles.loaderContainer}>
-                    <div className={styles.loader}></div>
-                  </div>
+                  <Loader containerHeight="0.7rem" loaderSize="1rem" borderSize="0.2rem" />
                 ):("Place Order")}
               </button>
               <span className={styles.notice}>

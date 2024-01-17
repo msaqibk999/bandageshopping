@@ -12,6 +12,8 @@ export const AllProductsComponent = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const loaderContainerLength = window.innerWidth <= 1024 ? '100vw' : '44vw';
+
   
   useEffect(() => {
     fetch(baseUrl+"/product/get-list")
@@ -20,7 +22,7 @@ export const AllProductsComponent = () => {
         setIsLoading(false)
         setProducts(result.products);
       });
-  }, []);
+  }, [baseUrl]);
 
   useEffect(() => {
     (async () => {
@@ -43,7 +45,7 @@ export const AllProductsComponent = () => {
 
   return <>
   {isLoading ? (
-    <div style={{minHeight:"70rem"}}><Loader /></div>
+    <div style={{minHeight:"70rem"}}><Loader containerHeight={loaderContainerLength} loaderSize="2.5rem" borderSize="0.4rem" /></div>
   ):(
    <>{productList}</>
   )}

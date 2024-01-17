@@ -12,6 +12,7 @@ import { EditIdPage } from "./EditIdPage";
 import { GetToken } from "../utils/GetToken";
 import Cookies from "universal-cookie";
 import { GetCart } from "../utils/GetCart";
+import NoMatchPage from "./NoMatchPage";
 
 const cookies = new Cookies();
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -44,8 +45,8 @@ export const LandingPage = () => {
     if (userDetails.status === "Blocked") {
       setUserImg(null);
       cookies.remove("jwt-authorization", {
-        path: "/",
-        domain: "localhost",
+        path: "/bandageshopping",
+        domain: window.location.hostname,
       });
       alert("Session Expired Please login!");
       return;
@@ -129,6 +130,7 @@ export const LandingPage = () => {
                 <Route path="/id" element={<IdPage func={pull_data} />} />
                 <Route path="/order" element={<OrderPage />} />
                 <Route path="/edit" element={<EditIdPage func={pull_data} />} />
+                <Route path="/*" element={<NoMatchPage />} />
               </Routes>
             </ScrollToTop>
           </CartContext.Provider>

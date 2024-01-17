@@ -16,6 +16,8 @@ export const SingleProductPage = () => {
   const { cartItems, setCartItems } = useContext(CartContext);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingCart, setIsLoadingCart] = useState(false);
+  const loaderContainerLength = window.innerWidth <= 1024 ? '100vw' : '44vw';
+  const buttonLoaderContainerLength = window.innerWidth <= 1024 ? '1rem' : '0.8rem';
 
   let { id } = useParams();
   const navigate = useNavigate();
@@ -144,9 +146,7 @@ export const SingleProductPage = () => {
               onClick={(event) => handleButtonClick(event, product)}
             >
               {isLoadingCart ? (
-                <div className={styles.loaderContainer}>
-                  <div className={styles.loader}></div>
-                </div>
+                <Loader containerHeight={buttonLoaderContainerLength} loaderSize="1rem" borderSize="0.2rem"/>
               ):(text)}
             </button>
             <div className={styles.bottomIcons}>
@@ -179,7 +179,7 @@ export const SingleProductPage = () => {
           </div>
         </div>
         {isLoading ? (
-          <Loader />
+          <Loader containerHeight={loaderContainerLength} loaderSize="1.5rem" borderSize="0.5rem" />
         ):(
           <div className={styles.list_container}>{productList}</div>
         )}

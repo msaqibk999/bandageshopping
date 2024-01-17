@@ -3,5 +3,5 @@ const cookies = new Cookies();
 
 
 export function LogOutUser(){
-cookies.remove("jwt-authorization", { path: "/", domain: "localhost" });
+cookies.remove("jwt-authorization", { path: "/bandageshopping", domain: window.location.hostname });
 }

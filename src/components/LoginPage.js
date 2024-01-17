@@ -21,6 +21,7 @@ async function getToken(data) {
 const LoginForm = () => {
   const [email, setEmail] = useState([""]);
   const [password, setPassword] = useState([""]);
+  const [loading, isLoading] = useState(false);
 
   const cookies = new Cookies();
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const LoginForm = () => {
         {
           expires: new Date(Date.now() + 2592000000),
         },
-        { path: "/", domain: "localhost" }
+        { path: "/", domain: window.location.hostname }
       );
 
       toast.success("Login Successful !", {

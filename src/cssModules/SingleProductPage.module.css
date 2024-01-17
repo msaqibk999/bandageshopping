@@ -53,31 +53,6 @@
 .stock{
     color: skyblue;
 }
-.addbtn{
-    border:2px solid #3669C9;
-    padding: 1em;
-    color: white;
-    background-color: #3669C9;
-    margin-top: 6em;
-    width: 8em;
-    font-size: 0.7em;
-    margin-right:1em;
-    cursor: pointer;
-}
-.removebtn{
-    border:2px solid #3669C9;
-    padding: 1em;
-    color: #3669C9;
-    background-color: white;
-    margin-top: 6em;
-    width: 8em;
-    font-size: 0.7em;
-    margin-right:1em;
-    cursor: pointer;
-}
-.addbtn:hover{
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
 .bottomBtns{
     display: flex;
     flex: row;
@@ -118,21 +93,6 @@
     justify-content: center;
     align-items: center;
 }
-.loaderContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-  }
-  
-  .loader {
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #3498db;
-    border-radius: 50%;
-    width: 11px;
-    height: 11px;
-    animation: spin 1s linear infinite;
-  }
 
   @keyframes spin {
     0% { transform: rotate(0deg); }

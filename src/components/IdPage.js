@@ -22,6 +22,7 @@ export const IdPage = (props) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const cookies = new Cookies();
+  const loaderContainerLength = window.innerWidth <= 1024 ? '100vw' : '44vw';
 
   const handleEditProfile = () => {
     navigate("/edit",{ state: { 
@@ -48,7 +49,7 @@ export const IdPage = (props) => {
 
   const logout = () => {
     setUser(null);
-    cookies.remove("jwt-authorization", { path: "/", domain: "localhost" });
+    cookies.remove("jwt-authorization", { path: "/bandageshopping", domain: window.location.hostname });
     props.func(null);
     toast.success("Log out successful !", {
       position: toast.POSITION.TOP_RIGHT,
@@ -75,7 +76,7 @@ export const IdPage = (props) => {
           </div>
         </div>
         {loading ? (
-          <Loader />
+          <Loader containerHeight={loaderContainerLength} loaderSize="2.5rem" borderSize="0.4rem" />
         ):(
             user ? (
               <div className={styles.profile}>
