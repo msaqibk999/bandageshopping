@@ -1,6 +1,5 @@
 {
   "name": "bandageshopping",
-  "homepage": "https://bandageshopping.pages.dev/bandageshopping",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
