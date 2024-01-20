@@ -87,7 +87,7 @@ export const CartPage = () => {
     };
     const result = await updateQuantity(data, token).then((res) => res.status);
     if(result === "Blocked"){
-      cookies.remove("jwt-authorization", { path: "/bandageshopping", domain: window.location.hostname });
+      cookies.remove("jwt-authorization", { path: "/", domain: window.location.hostname });
       alert("Session Expired Please login again")
       navigate("/login");
     }
@@ -107,7 +107,7 @@ export const CartPage = () => {
     };
     const result = await deleteFromCart(data, token).then((res) => res.status);
     if(result === "Blocked"){
-      cookies.remove("jwt-authorization", { path: "/bandageshopping", domain: window.location.hostname });
+      cookies.remove("jwt-authorization", { path: "/", domain: window.location.hostname });
       alert("Session Expired Please login again")
       navigate("/login");
     }
@@ -125,7 +125,7 @@ export const CartPage = () => {
       return res.status;
     });
     if(result === "Blocked"){
-      cookies.remove("jwt-authorization", { path: "/bandageshopping", domain: window.location.hostname });
+      cookies.remove("jwt-authorization", { path: "/", domain: window.location.hostname });
       alert("Session Expired Please login again")
       navigate("/login");
     }

@@ -45,7 +45,7 @@ export const LandingPage = () => {
     if (userDetails.status === "Blocked") {
       setUserImg(null);
       cookies.remove("jwt-authorization", {
-        path: "/bandageshopping",
+        path: "/",
         domain: window.location.hostname,
       });
       alert("Session Expired Please login!");

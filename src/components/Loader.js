@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../cssModules/Loader.module.css';
 
-export default function Loader({ containerHeight, loaderSize, borderSize }) {
+export default function Loader({ containerHeight, loaderSize, borderSize, backgroundColor }) {
   const loaderStyle = {
     border: `${borderSize} solid #f3f3f3`,
     borderTop: `${borderSize} solid #3498db`,
@@ -13,6 +13,7 @@ export default function Loader({ containerHeight, loaderSize, borderSize }) {
 
   const containerStyle = {
     height: containerHeight,
+    backgroundColor
   };
 
   return (
@@ -26,10 +27,12 @@ Loader.propTypes = {
   containerHeight: PropTypes.string,
   loaderSize: PropTypes.string,
   borderSize: PropTypes.string,
+  backgroundColor: PropTypes.string,
 };
 
 Loader.defaultProps = {
   containerHeight: '35vw',
   loaderSize: '1rem',
   borderSize: '0.2rem',
+  backgroundColor: 'transparent',
 };

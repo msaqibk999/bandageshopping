@@ -50,6 +50,10 @@ form{
   .signup:hover{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
+  .loaderContainer{
+    margin: 0.5rem 0 0 0.6rem;
+    width: 26.1rem;
+  }
 
   @media screen and (max-width:500px) {
     input{
@@ -59,6 +63,9 @@ form{
     }
     form{
       margin-left: 0px;
+    }
+    .loaderContainer{
+      width: 20rem;
     }
     .signup{
       width: 20rem;

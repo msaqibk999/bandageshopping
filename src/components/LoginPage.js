@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -21,7 +22,7 @@ async function getToken(data) {
 const LoginForm = () => {
   const [email, setEmail] = useState([""]);
   const [password, setPassword] = useState([""]);
-  const [loading, isLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const cookies = new Cookies();
   const navigate = useNavigate();
@@ -38,18 +39,23 @@ const LoginForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const data = {
       email,
       password,
     };
 
     if (!data.email || !data.password) {
+      setLoading(false);
       alert("Please input fields");
       return;
     }
+
     const response = await getToken(data)
       .then((res) => res)
       .catch((e) => e);
+
+    if(response) setLoading(false);
 
     if (response.status === "success") {
       const jwt_token = response.token;
@@ -123,12 +129,16 @@ const LoginForm = () => {
           />
           <br />
           <br />
-          <input
-            type="submit"
-            value="Login"
-            className={styles.signup}
-            onClick={(event) => handleSubmit(event)}
-          />
+          {loading ? (
+              <div className={styles.loaderContainer}><Loader containerHeight="2rem" loaderSize="1rem" borderSize="0.2rem" backgroundColor="#7343EE"/></div>
+          ):(
+              <input
+                type="submit"
+                value="Login"
+                className={styles.signup}
+                onClick={(event) => handleSubmit(event)}
+              />
+          )}
         </form>
         <section className=""></section>
         <section className={styles.alreadyRegistered}>

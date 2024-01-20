@@ -49,7 +49,7 @@ export const Card = (props) => {
     const token = GetToken();
     if (!token) {
       cookies.remove("jwt-authorization", {
-        path: "/bandageshopping",
+        path: "/",
         domain: window.location.hostname,
       });
       alert("Please login to add products!");
@@ -63,9 +63,10 @@ export const Card = (props) => {
       const result = await postIntoCart(data, token).then((res) => res.status);
       if (result === "Blocked") {
         cookies.remove("jwt-authorization", {
-          path: "/bandageshopping",
+          path: "/",
           domain: window.location.hostname,
         });
+        setIsLoading(false);
         alert("Session Expired Please login again");
         navigate("/login");
       }
@@ -85,7 +86,7 @@ export const Card = (props) => {
       );
       if (result === "Blocked") {
         cookies.remove("jwt-authorization", {
-          path: "/bandageshopping",
+          path: "/",
           domain: window.location.hostname,
         });
         alert("Session Expired Please login again");

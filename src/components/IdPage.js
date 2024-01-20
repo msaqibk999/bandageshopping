@@ -49,7 +49,7 @@ export const IdPage = (props) => {
 
   const logout = () => {
     setUser(null);
-    cookies.remove("jwt-authorization", { path: "/bandageshopping", domain: window.location.hostname });
+    cookies.remove("jwt-authorization", { path: "/", domain: window.location.hostname });
     props.func(null);
     toast.success("Log out successful !", {
       position: toast.POSITION.TOP_RIGHT,

@@ -80,6 +80,7 @@ export const SingleProductPage = () => {
       };
       const result = await postIntoCart(data, token).then((res) => res.status);
       if (result === "Blocked") {
+        setIsLoadingCart(false);
         alert("Session Expired Please login again");
         navigate("/login");
       }
@@ -98,6 +99,7 @@ export const SingleProductPage = () => {
         (res) => res.status
       );
       if (result === "Blocked") {
+        setIsLoadingCart(false);
         alert("Session Expired Please login again");
         navigate("/login");
       }

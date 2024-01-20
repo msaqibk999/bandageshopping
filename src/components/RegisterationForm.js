@@ -3,6 +3,7 @@ import styles from "../cssModules/registerationForm.module.css";
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -22,6 +23,7 @@ const RegisterationForm = () => {
   const [email, setEmail] = useState([""]);
   const [password, setPassword] = useState([""]);
   const [cpassword, setCpassword] = useState([""]);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -46,13 +48,14 @@ const RegisterationForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    setLoading(true);
     var regx=/^([a-zA-Z0-9._]+)@([a-zA-Z0-9])+.([a-z]+)(.[a-z]+)?$/;
 
     if(!regx.test(email)) {
       toast.error("Please Enter proper Email !", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      setLoading(false);
       return
     }
 
@@ -60,6 +63,7 @@ const RegisterationForm = () => {
       toast.error("Passwords doesn't match !", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      setLoading(false);
       return
     } else {
       const data = {
@@ -72,6 +76,7 @@ const RegisterationForm = () => {
         toast.success("Registeration Successful !", {
           position: toast.POSITION.TOP_RIGHT,
         });
+      setLoading(false);
       navigate("/login");
       }
     }
@@ -128,12 +133,16 @@ const RegisterationForm = () => {
         />
         <br />
         <br />
-        <input
-          type="submit"
-          value="Signup"
-          className={styles.signup}
-          onClick={(event) => handleSubmit(event)}
-        />
+        {loading ? (
+              <div className={styles.loaderContainer}><Loader containerHeight="2rem" loaderSize="1rem" borderSize="0.2rem" backgroundColor="#7343EE"/></div>
+          ):(
+              <input
+                type="submit"
+                value="Signup"
+                className={styles.signup}
+                onClick={(event) => handleSubmit(event)}
+              />
+          )}
       </form>
       <section className=""></section>
       <section className={styles.alreadyRegistered}>
