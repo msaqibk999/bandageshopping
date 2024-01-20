@@ -2,10 +2,10 @@ import React, { useEffect, useState ,useContext} from "react";
 import styles from "../cssModules/CartPage.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import { GetToken } from "../utils/GetToken";
-import Cookies from "universal-cookie";
 import { CartContext } from "./LandingPage";
 import Loader from "./Loader";
 import { deleteFromCart } from "../utils/Cart";
+import { LogOutUser } from "../utils/LogOutUser";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -43,8 +43,6 @@ async function placeOrder(token) {
 export const CartPage = () => {
 
   const ref = React.useRef(null);
-  const cookies = new Cookies();
-
   const [vat, setVat] = useState(0);
   const [state, setState] = useState(true);
   const [Loading, setLoading] = useState(true);
@@ -87,7 +85,7 @@ export const CartPage = () => {
     };
     const result = await updateQuantity(data, token).then((res) => res.status);
     if(result === "Blocked"){
-      cookies.remove("jwt-authorization", { path: "/", domain: window.location.hostname });
+      LogOutUser();
       alert("Session Expired Please login again")
       navigate("/login");
     }
@@ -107,7 +105,7 @@ export const CartPage = () => {
     };
     const result = await deleteFromCart(data, token).then((res) => res.status);
     if(result === "Blocked"){
-      cookies.remove("jwt-authorization", { path: "/", domain: window.location.hostname });
+      LogOutUser();
       alert("Session Expired Please login again")
       navigate("/login");
     }
@@ -125,7 +123,7 @@ export const CartPage = () => {
       return res.status;
     });
     if(result === "Blocked"){
-      cookies.remove("jwt-authorization", { path: "/", domain: window.location.hostname });
+      LogOutUser();
       alert("Session Expired Please login again")
       navigate("/login");
     }

@@ -10,11 +10,9 @@ import ScrollToTop from "../utils/ScrollToTop";
 import { OrderPage } from "./OrderPage";
 import { EditIdPage } from "./EditIdPage";
 import { GetToken } from "../utils/GetToken";
-import Cookies from "universal-cookie";
 import { GetCart } from "../utils/GetCart";
 import NoMatchPage from "./NoMatchPage";
-
-const cookies = new Cookies();
+import { LogOutUser } from "../utils/LogOutUser";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 async function getUser(token) {
@@ -44,10 +42,7 @@ export const LandingPage = () => {
       .catch((e) => e);
     if (userDetails.status === "Blocked") {
       setUserImg(null);
-      cookies.remove("jwt-authorization", {
-        path: "/",
-        domain: window.location.hostname,
-      });
+      LogOutUser();
       alert("Session Expired Please login!");
       return;
     }

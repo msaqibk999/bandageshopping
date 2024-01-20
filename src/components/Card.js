@@ -2,15 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "../cssModules/Card.module.css";
 import { useNavigate } from "react-router-dom";
 import { GetToken } from "../utils/GetToken";
-import Cookies from "universal-cookie";
 import { CartContext } from "./LandingPage";
 import { postIntoCart, deleteFromCart } from "../utils/Cart";
 import Loader from "./Loader";
+import { LogOutUser } from "../utils/LogOutUser";
 
 export const Card = (props) => {
   const item = props.product;
-  const cookies = new Cookies();
-
   const [text, setText] = useState("Add");
   const [cls, setCls] = useState("addbtn");
   const [isLoading, setIsLoading] = useState(false);
@@ -48,10 +46,7 @@ export const Card = (props) => {
     setIsLoading(true);
     const token = GetToken();
     if (!token) {
-      cookies.remove("jwt-authorization", {
-        path: "/",
-        domain: window.location.hostname,
-      });
+      LogOutUser();
       alert("Please login to add products!");
       navigate("/login");
       return;
@@ -62,10 +57,7 @@ export const Card = (props) => {
       };
       const result = await postIntoCart(data, token).then((res) => res.status);
       if (result === "Blocked") {
-        cookies.remove("jwt-authorization", {
-          path: "/",
-          domain: window.location.hostname,
-        });
+        LogOutUser();
         setIsLoading(false);
         alert("Session Expired Please login again");
         navigate("/login");
@@ -85,10 +77,7 @@ export const Card = (props) => {
         (res) => res.status
       );
       if (result === "Blocked") {
-        cookies.remove("jwt-authorization", {
-          path: "/",
-          domain: window.location.hostname,
-        });
+        LogOutUser();
         alert("Session Expired Please login again");
         navigate("/login");
       }

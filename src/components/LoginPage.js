@@ -64,7 +64,7 @@ const LoginForm = () => {
         "jwt-authorization",
         jwt_token,
         {
-          expires: new Date(Date.now() + 2592000000),
+          expires: new Date(Date.now() + 10 * 60 * 60 * 1000),
         },
         { path: "/", domain: window.location.hostname }
       );

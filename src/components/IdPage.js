@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Cookies from "universal-cookie";
 import styles from "../cssModules/IdPage.module.css";
 import { toast } from "react-toastify";
 import { GetToken } from "../utils/GetToken";
 import Loader from "./Loader";
+import { LogOutUser } from "../utils/LogOutUser";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -21,7 +21,6 @@ export const IdPage = (props) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const cookies = new Cookies();
   const loaderContainerLength = window.innerWidth <= 1024 ? '100vw' : '44vw';
 
   const handleEditProfile = () => {
@@ -49,7 +48,7 @@ export const IdPage = (props) => {
 
   const logout = () => {
     setUser(null);
-    cookies.remove("jwt-authorization", { path: "/", domain: window.location.hostname });
+    LogOutUser();
     props.func(null);
     toast.success("Log out successful !", {
       position: toast.POSITION.TOP_RIGHT,
