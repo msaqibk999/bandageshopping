@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename="/bandageshopping">
         <Routes>
           <Route exact path="/*" element={<LandingPage />} />
           <Route path="/register" element={<RegisterationForm />} />
