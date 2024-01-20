@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/bandageshopping/static/css/main.edf56d82.css",
-    "main.js": "/bandageshopping/static/js/main.bc1ee630.js",
+    "main.css": "/bandageshopping/static/css/main.2aedfb2a.css",
+    "main.js": "/bandageshopping/static/js/main.3370c370.js",
     "static/js/787.424ae9fe.chunk.js": "/bandageshopping/static/js/787.424ae9fe.chunk.js",
     "index.html": "/bandageshopping/index.html",
-    "main.edf56d82.css.map": "/bandageshopping/static/css/main.edf56d82.css.map",
-    "main.bc1ee630.js.map": "/bandageshopping/static/js/main.bc1ee630.js.map",
+    "main.2aedfb2a.css.map": "/bandageshopping/static/css/main.2aedfb2a.css.map",
+    "main.3370c370.js.map": "/bandageshopping/static/js/main.3370c370.js.map",
     "787.424ae9fe.chunk.js.map": "/bandageshopping/static/js/787.424ae9fe.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.edf56d82.css",
-    "static/js/main.bc1ee630.js"
+    "static/css/main.2aedfb2a.css",
+    "static/js/main.3370c370.js"
   ]
 }
