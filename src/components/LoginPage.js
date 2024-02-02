@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "../cssModules/registerationForm.module.css";
 import { Link } from "react-router-dom";
-import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
+import { loginUser } from "../utils/Login_logoutUser";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -23,8 +23,6 @@ const LoginForm = () => {
   const [email, setEmail] = useState([""]);
   const [password, setPassword] = useState([""]);
   const [loading, setLoading] = useState(false);
-
-  const cookies = new Cookies();
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -57,40 +55,40 @@ const LoginForm = () => {
 
     if(response) setLoading(false);
 
+    console.log(response.status)
+
     if (response.status === "success") {
       const jwt_token = response.token;
-
-      cookies.set(
-        "jwt-authorization",
-        jwt_token,
-        {
-          expires: new Date(Date.now() + 10 * 60 * 60 * 1000),
-        },
-        { path: "/", domain: window.location.hostname }
-      );
-
+      loginUser(jwt_token);
       toast.success("Login Successful !", {
         position: toast.POSITION.TOP_RIGHT,
       });
-
       navigate("/");
       return;
     }
 
     if (response.status === "forbidden") {
-      alert("wrong password");
+      toast.error("wrong password", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       return;
     }
     if (response.status === "invalid-email") {
-      alert("Please input proper email");
+      toast.error("Please input proper email", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       return;
     }
     if (response.status === "unavailable") {
-      alert("Unknown email please register!");
+      toast.error("Unknown email please register!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       return;
     }
     if (response.status === "fail") {
-      alert("Login failed due to some error");
+      toast.error("Login failed due to some error \n please try again later", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       return;
     }
   };

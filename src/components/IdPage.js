@@ -3,9 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "../cssModules/IdPage.module.css";
 import { toast } from "react-toastify";
-import { GetToken } from "../utils/GetToken";
+import { GetToken } from "../utils/Login_logoutUser";
 import Loader from "./Loader";
-import { LogOutUser } from "../utils/LogOutUser";
+import { LogOutUser } from "../utils/Login_logoutUser";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 

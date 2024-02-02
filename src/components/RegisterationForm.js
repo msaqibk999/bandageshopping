@@ -71,13 +71,19 @@ const RegisterationForm = () => {
         email,
         password,
       };
-      const result= await postData(data).then((res)=>res.status);
-      if(result === 'success'){
+      const result= await postData(data).then((res)=>res);
+      if(result.status === 'success'){
         toast.success("Registeration Successful !", {
           position: toast.POSITION.TOP_RIGHT,
         });
       setLoading(false);
       navigate("/login");
+      }
+      else if(result.status === "Bad request"){
+        setLoading(false)
+        toast.error(result.message + " please login!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
     }
   };

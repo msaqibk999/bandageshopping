@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { GetCart } from "../utils/GetCart";
-import { GetToken } from "../utils/GetToken";
+import { GetToken } from "../utils/Login_logoutUser";
 import { Card } from "./Card";
 import { CartContext } from "./LandingPage";
 import Loader from "./Loader";

@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import styles from "../cssModules/SingleProductPage.module.css";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { GetToken } from "../utils/GetToken";
+import { GetToken } from "../utils/Login_logoutUser";
 import { CartContext } from "./LandingPage";
 import Carousel from "./Carousel";
 import Loader from "./Loader";

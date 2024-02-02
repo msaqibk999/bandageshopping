@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "../cssModules/Card.module.css";
 import { useNavigate } from "react-router-dom";
-import { GetToken } from "../utils/GetToken";
+import { GetToken } from "../utils/Login_logoutUser";
 import { CartContext } from "./LandingPage";
 import { postIntoCart, deleteFromCart } from "../utils/Cart";
 import Loader from "./Loader";
-import { LogOutUser } from "../utils/LogOutUser";
+import { LogOutUser } from "../utils/Login_logoutUser";
 
 export const Card = (props) => {
   const item = props.product;

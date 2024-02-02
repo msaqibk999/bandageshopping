@@ -1,4 +1,4 @@
-import { GetToken } from "./GetToken";
+import { GetToken } from "./Login_logoutUser";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export const GetCart = async () => {

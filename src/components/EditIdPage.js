@@ -3,7 +3,7 @@ import styles from '../cssModules/EditIdPage.module.css'
 import { useNavigate, Link } from "react-router-dom";
 import {useLocation} from 'react-router-dom';
 import { toast } from "react-toastify";
-import { GetToken } from '../utils/GetToken';
+import { GetToken } from "../utils/Login_logoutUser";
 import { storage } from '../firebase';
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 

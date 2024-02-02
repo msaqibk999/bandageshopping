@@ -9,10 +9,10 @@ import { IdPage } from "./IdPage";
 import ScrollToTop from "../utils/ScrollToTop";
 import { OrderPage } from "./OrderPage";
 import { EditIdPage } from "./EditIdPage";
-import { GetToken } from "../utils/GetToken";
+import { GetToken } from "../utils/Login_logoutUser";
 import { GetCart } from "../utils/GetCart";
 import NoMatchPage from "./NoMatchPage";
-import { LogOutUser } from "../utils/LogOutUser";
+import { LogOutUser } from "../utils/Login_logoutUser";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 async function getUser(token) {

@@ -1,11 +1,11 @@
 import React, { useEffect, useState ,useContext} from "react";
 import styles from "../cssModules/CartPage.module.css";
 import { useNavigate, Link } from "react-router-dom";
-import { GetToken } from "../utils/GetToken";
+import { GetToken } from "../utils/Login_logoutUser";
 import { CartContext } from "./LandingPage";
 import Loader from "./Loader";
 import { deleteFromCart } from "../utils/Cart";
-import { LogOutUser } from "../utils/LogOutUser";
+import { LogOutUser } from "../utils/Login_logoutUser";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
