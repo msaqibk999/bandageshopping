@@ -272,7 +272,7 @@ th,td{
         justify-content: center;
     }
     .cartIcon{
-        margin-left: 3rem;
+        margin: 0.25rem 0 0 3rem;
         font-size: 2rem;
     }
     .cartIcon i{
