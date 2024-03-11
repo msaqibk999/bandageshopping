@@ -82,7 +82,7 @@ export default function Carousel({children}) {
     }
     intervalRef.current = setInterval(() => {
         actionHandler("next")
-    }, 3000);
+    }, 2000);
     return () => {
         if(intervalRef.current) {
             clearInterval(intervalRef.current);
@@ -102,7 +102,7 @@ export default function Carousel({children}) {
     }
     intervalRef.current = setInterval(() => {
       actionHandler('next');
-    }, 3000);
+    }, 2000);
   };
 
   return (

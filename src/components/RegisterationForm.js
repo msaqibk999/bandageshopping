@@ -72,6 +72,7 @@ const RegisterationForm = () => {
         password,
       };
       const result= await postData(data).then((res)=>res);
+      console.log(result)
       if(result.status === 'success'){
         toast.success("Registeration Successful !", {
           position: toast.POSITION.TOP_RIGHT,
@@ -82,6 +83,12 @@ const RegisterationForm = () => {
       else if(result.status === "Bad request"){
         setLoading(false)
         toast.error(result.message + " please login!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+      else if(result.status === "fail"){
+        setLoading(false)
+        toast.error("Failed to register please try later!", {
           position: toast.POSITION.TOP_RIGHT,
         });
       }

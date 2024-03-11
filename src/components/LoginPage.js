@@ -55,8 +55,6 @@ const LoginForm = () => {
 
     if(response) setLoading(false);
 
-    console.log(response.status)
-
     if (response.status === "success") {
       const jwt_token = response.token;
       loginUser(jwt_token);

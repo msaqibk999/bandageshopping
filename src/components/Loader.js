@@ -1,9 +1,8 @@
-// Loader.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../cssModules/Loader.module.css';
 
-export default function Loader({ containerHeight, loaderSize, borderSize, backgroundColor }) {
+export default function Loader({ children, containerHeight, loaderSize, borderSize, backgroundColor }) {
   const loaderStyle = {
     border: `${borderSize} solid #f3f3f3`,
     borderTop: `${borderSize} solid #3498db`,
@@ -18,6 +17,7 @@ export default function Loader({ containerHeight, loaderSize, borderSize, backgr
 
   return (
     <div className={styles.loaderContainer} style={containerStyle}>
+      {children}
       <div className={styles.loader} style={loaderStyle}></div>
     </div>
   );

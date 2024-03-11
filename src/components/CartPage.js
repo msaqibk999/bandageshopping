@@ -40,7 +40,7 @@ async function placeOrder(token) {
   return data1;
 }
 
-export const CartPage = () => {
+const CartPage = () => {
 
   const ref = React.useRef(null);
   const [vat, setVat] = useState(0);
@@ -48,6 +48,7 @@ export const CartPage = () => {
   const [Loading, setLoading] = useState(true);
   const [orderTotal, SetOrderTotal] = useState(0);
   const [placingOrder, setIsPlacingOrder] = useState(false);
+  const [isDeleting, setDeleting] = useState(null);
   const { cartItems, setCartItems, isCartLoading } = useContext(CartContext);
   const token = GetToken();
   const navigate = useNavigate();
@@ -100,17 +101,20 @@ export const CartPage = () => {
   };
 
   const handleDeleteFromCart = async (event, item) => {
+    setDeleting(item.id)
     const data = {
       productId: item.id,
     };
     const result = await deleteFromCart(data, token).then((res) => res.status);
     if(result === "Blocked"){
+      setDeleting(null);
       LogOutUser();
       alert("Session Expired Please login again")
       navigate("/login");
     }
     if (result === "success") {
       setCartItems(cartItems.filter((product) => product.id !== item.id));
+      setDeleting(null);
     }
     setState(!state);
   };
@@ -134,16 +138,16 @@ export const CartPage = () => {
         setIsPlacingOrder(false)
         setCartItems([])
         
-        navigate("/order", { state: { id, status: true } });
+        navigate("/place-order", { state: { id, status: true } });
       } else {
         setState(!state);
         setIsPlacingOrder(false)
-        navigate("/order", { state: { id: null, status: false } });
+        navigate("/place-order", { state: { id: null, status: false } });
       }
     }
     if(result === "fail") {
       setState(!state);
-      navigate("/order", { state: { id: null, status: false } });
+      navigate("/place-order", { state: { id: null, status: false } });
     }
   };
   
@@ -164,7 +168,7 @@ export const CartPage = () => {
             <div className={styles.category}>{item.category}</div>
             <div className={styles.prices}>
               <div className={styles.price1}>${item.price}</div>
-              <div className={styles.price2}>${item.price}</div>
+              <div className={styles.price2}>${item.price * item.quantity}</div>
             </div>
             <div className={styles.buttons}>
               <select
@@ -183,7 +187,11 @@ export const CartPage = () => {
                 className={styles.removebtn}
                 onClick={(event) => handleDeleteFromCart(event, item)}
               >
-                Delete
+                {isDeleting === item.id ? (
+                                              <Loader containerHeight="0.78rem" loaderSize="0.9rem" borderSize="0.2rem" />
+                                          ) : (
+                                              "Remove"
+                                          )}
               </button>
             </div>
           </div>
@@ -267,3 +275,5 @@ export const CartPage = () => {
     </>
   );
 };
+
+export default CartPage;

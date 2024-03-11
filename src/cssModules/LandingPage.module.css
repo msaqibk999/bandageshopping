@@ -7,13 +7,14 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    border: 2px solid black;
     font-size: 1.5em;
-    padding: 0.3em;
-    background-color: white;
+    padding: 0.6rem 0.2rem;
+    background-color: #3669C9;
     z-index: 1;
+    border-bottom: 2px solid white;
 }
 .productsContainer{
+    position: relative;
     overflow: hidden;
     box-sizing: border-box;
     padding: 1rem 0 0 0;
@@ -24,7 +25,29 @@
 .displayBottomNav{
     display: none;
 }
-
+.logoContainer{
+    height: 40vw;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bandageLogo{
+    width: 8rem;
+    animation: growImage 1.5s forwards;
+}
+@keyframes growImage {
+    from {
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      width: 8rem;
+      height: 10rem;
+      opacity: 1;
+    }
+}
 .product{
     padding: 1em;
     display: flex;
@@ -40,9 +63,9 @@
 }
 .loginbtn{
     border: none;
-    background-color: white;
+    background-color: transparent;
     font-size: 0.8em;
-    color: blue;
+    color: white;
     margin-right: 3em;
     margin-bottom: 0.2em;
 }
@@ -50,9 +73,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-right: 2em;
+    padding-right: 4em;
     padding-left: 2em;
-    margin-right: 2em;
+}
+.icons i{
+    color: white;
 }
 .image{
     height: 1.5em;
@@ -92,6 +117,7 @@ footer{
 }
 .footerLogo{
     margin-right: 2em;
+    font-family: "Madimi One", sans-serif;
 }
 .hrLine{
     max-width: 74em;
@@ -109,11 +135,23 @@ th,td{
     padding: 1em;
     text-align: left;
 }
+.orderIcon{
+    margin: 0.35rem 0rem 0rem 3rem;
+    font-size: 1.7rem;
+    color: white;
+}
 .cartIcon{
-    margin-left: 3em;
+    margin-left: 1.5em;
     font-size: 1.3em;
     margin-top: 0.1em;
     cursor: pointer;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    position: relative;
+}
+.cartIcon i, .idLogo i, .notLogged i {
+    color: white;
 }
 .idLogo{
     cursor: pointer;
@@ -126,18 +164,14 @@ th,td{
     width: 2em;
 }
 .logo{
-    font-size: 1.6rem;
-    margin-left: 4rem;
+    font-size: 2rem;
+    margin-left: 6rem;
     cursor: pointer;
     margin-right: 3rem;
+    color: white;
+    font-family: "Madimi One", sans-serif;
 }
-.cartIcon{
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    position: relative;
-  }
-  .cartIcon .number{
+.cartIcon .number{
     font-size: 0.8rem;
     font-weight: bold;
     position: absolute;
@@ -160,23 +194,25 @@ th,td{
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: white;
-    border: 2px solid black;
+    background-color: #3669C9;
+    border-top: 2px solid white;
     z-index: 1;
-    padding: 0.2rem 0rem;
+    padding: 0.25rem 1.2rem;
     font-size: 2.2rem;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    box-sizing: border-box;
 }
 
 .bottomHomeIcon{
-    color: black;
+    color: white;
+    font-size: 1.6rem;
 }
 
 .bottomIcon{
     margin-left: 4rem;
-    color: black;
+    color: white;
 }
 
 .bottomImage{
@@ -184,7 +220,7 @@ th,td{
     width: 2rem;
     border-radius: 50%;
     margin-left: 3rem;
-    margin-top: 0.3rem;
+    margin-top: 0.5rem;
     align-self: center;
     object-fit: cover;
 }
@@ -198,7 +234,7 @@ th,td{
 .bottomLoginbtn{
     border: none;
     background-color: transparent;
-    color: blue;
+    color: white;
     font-size: 1rem;
 }
 
@@ -228,7 +264,11 @@ th,td{
     .icons{
         display: none !important;
     }
+    .logo{
+        margin: 0rem;
+    }
     .nav{
+        padding: 0.4rem 0rem;
         justify-content: center;
     }
     .cartIcon{
@@ -236,12 +276,17 @@ th,td{
         font-size: 2rem;
     }
     .cartIcon i{
-        color: black;
+        color: white;
     }
     .cartIcon .number{
         width: 1rem;
         height: 1rem;
         top: -0.2rem;
+    }
+    .logoContainer{
+        height: 130vw;
+        width: 100vw;
+        transform: scale(0.8);
     }
 }
 
@@ -279,7 +324,6 @@ th,td{
   
 @media screen and (min-width: 1180px) {
     .productsContainer{
-       
         display: grid;
         align-items: center;
         grid-template-columns: auto auto auto auto;

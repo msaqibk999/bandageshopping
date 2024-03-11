@@ -17,7 +17,7 @@ async function getUser(token) {
   return data1;
 }
 
-export const IdPage = (props) => {
+const IdPage = (props) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -107,3 +107,5 @@ export const IdPage = (props) => {
     </>
   );
 };
+
+export default IdPage;

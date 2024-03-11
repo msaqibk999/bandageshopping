@@ -8,7 +8,7 @@ import Carousel from "./Carousel";
 import Loader from "./Loader";
 import { postIntoCart, deleteFromCart } from "../utils/Cart";
 
-export const SingleProductPage = () => {
+const SingleProductPage = () => {
   const [product, setProduct] = useState(null);
   const [image, setImage] = useState(null);
   const [text, setText] = useState("Add");
@@ -181,7 +181,7 @@ export const SingleProductPage = () => {
           </div>
         </div>
         {isLoading ? (
-          <Loader containerHeight={loaderContainerLength} loaderSize="1.5rem" borderSize="0.5rem" />
+          <Loader containerHeight={loaderContainerLength} loaderSize="2.5rem" borderSize="0.4rem" />
         ):(
           <div className={styles.list_container}>{productList}</div>
         )}
@@ -189,3 +189,5 @@ export const SingleProductPage = () => {
     </>
   );
 };
+
+export default SingleProductPage;

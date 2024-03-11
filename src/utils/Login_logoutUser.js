@@ -1,9 +1,6 @@
 const key = "auth-token"
 
 function setItemWithExpiry(key, value, expirySeconds) {
-  console.log("key = "+key)
-  console.log("value = " +value)
-  console.log("expirySeconds = " +expirySeconds)
   const now = new Date();
   const item = {
     value: value,
@@ -30,10 +27,8 @@ function getItemWithExpiry(key) {
 }
 
 export function loginUser(jwtToken) {
-  console.log("jwtToken = " +jwtToken)
   const expiry = 7 * 24 * 60 * 60 * 1000;
   setItemWithExpiry( key , jwtToken, expiry );
-  console.log("User logged in successfully.");
 }
 
 export function LogOutUser() {

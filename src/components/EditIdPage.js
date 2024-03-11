@@ -20,7 +20,7 @@ async function updateUser(data, token) {
     return data1;
   }
 
-export const EditIdPage = (props) => {
+const EditIdPage = (props) => {
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -213,3 +213,5 @@ export const EditIdPage = (props) => {
     </>
   )
 }
+
+export default EditIdPage;

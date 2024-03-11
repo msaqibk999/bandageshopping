@@ -1,19 +1,25 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, Suspense } from "react";
 import styles from "../cssModules/LandingPage.module.css";
 import { Link } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
-import { AllProductsComponent } from "./AllProductsComponent";
-import { SingleProductPage } from "./SingleProductPage";
-import { CartPage } from "./CartPage";
-import { IdPage } from "./IdPage";
+import Loader from "./Loader";
 import ScrollToTop from "../utils/ScrollToTop";
-import { OrderPage } from "./OrderPage";
-import { EditIdPage } from "./EditIdPage";
 import { GetToken } from "../utils/Login_logoutUser";
 import { GetCart } from "../utils/GetCart";
 import NoMatchPage from "./NoMatchPage";
 import { LogOutUser } from "../utils/Login_logoutUser";
+import BandageLogo from "../bandageLogo.png"
+
 const baseUrl = process.env.REACT_APP_BASE_URL;
+const AllProductsComponent = React.lazy(() => import('./AllProductsComponent'));
+const SingleProductPage = React.lazy(() => import('./SingleProductPage'));
+const CartPage = React.lazy(() => import('./CartPage'));
+const IdPage = React.lazy(() => import('./IdPage'));
+const EditIdPage = React.lazy(() => import('./EditIdPage'));
+const OrderPage = React.lazy(() => import('./OrderPage'));
+const PlaceOrderPage = React.lazy(() => import('./PlaceOrderPage'));
+const loaderContainerLength = window.innerWidth <= 1024 ? '100vw' : '44vw';
+
 
 async function getUser(token) {
   const res = await fetch(baseUrl+"/user/get-by-id", {
@@ -28,6 +34,7 @@ export const CartContext = createContext({});
 export const LandingPage = () => {
   const [userImg, setUserImg] = useState(null);
   const [isCartLoading, SetIsCartLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   let [cartItems, setCartItems] = useState([]);
 
   const pull_data = (data) => {
@@ -58,6 +65,9 @@ export const LandingPage = () => {
     if (token) {
       loggedIn(token);
     }
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   }, []);
 
   useEffect(() => {
@@ -92,7 +102,7 @@ export const LandingPage = () => {
                     className={styles.image}
                   />
                   ):(
-                    <i className={`fa fa-user`} style={{fontSize:"2rem", color:"black", marginTop:"0.4rem" }}></i>
+                    <i className={`fa fa-user`} style={{fontSize:"2rem", marginTop:"0.4rem" }}></i>
                   )}                  
                   </Link>
               ) : (
@@ -113,23 +123,32 @@ export const LandingPage = () => {
               )}
               <Link className="link" to="/cart"><i className={`fa fa-shopping-cart`}></i></Link>
             </div>
+              <Link className={`link ${styles.orderIcon}`} to="/order"><i className="fa-solid fa-bag-shopping"></i></Link>
           </div>
         </nav>
-        <div className={styles.productsContainer}>
-          <CartContext.Provider value={{ cartItems, setCartItems, isCartLoading }}>
-            <ScrollToTop>
-              <Routes>
-                <Route path="/" element={<AllProductsComponent />} />
-                <Route path="/product/:id" element={<SingleProductPage />} />
-                <Route path="/cart" element={<CartPage />} />
-                <Route path="/id" element={<IdPage func={pull_data} />} />
-                <Route path="/order" element={<OrderPage />} />
-                <Route path="/edit" element={<EditIdPage func={pull_data} />} />
-                <Route path="/*" element={<NoMatchPage />} />
-              </Routes>
-            </ScrollToTop>
-          </CartContext.Provider>
-        </div>
+            
+        {loading ? (
+          <div className={styles.logoContainer}><img className={styles.bandageLogo} src={BandageLogo} alt=""/></div>
+        ) : (
+              <div className={styles.productsContainer}>
+              <CartContext.Provider value={{ cartItems, setCartItems, isCartLoading }}>
+                <ScrollToTop>
+                  <Suspense fallback={<Loader containerHeight={loaderContainerLength} loaderSize="2.5rem" borderSize="0.4rem"/>}>
+                    <Routes>
+                      <Route path="/" element={<AllProductsComponent />} />
+                      <Route path="/product/:id" element={<SingleProductPage />} />
+                      <Route path="/cart" element={<CartPage />} />
+                      <Route path="/id" element={<IdPage func={pull_data} />} />
+                      <Route path="/place-order" element={<PlaceOrderPage />} />
+                      <Route path="/order" element={<OrderPage />}/>
+                      <Route path="/edit" element={<EditIdPage func={pull_data} />} />
+                      <Route path="/*" element={<NoMatchPage />} />
+                    </Routes>
+                  </Suspense>
+                </ScrollToTop>
+              </CartContext.Provider>
+            </div>
+        )}
         <footer className={styles.displayFooter}>
           <div className={styles.footerHeading}>
             <strong className={styles.footerLogo}>Bandage</strong>
@@ -176,7 +195,7 @@ export const LandingPage = () => {
         </footer>
         <div className={styles.displayBottomNav}>
           <div className={styles.mobileBottomNaveContainer}>
-            <Link to="/"><i className={`fa fa-home ${styles.bottomHomeIcon}`} aria-hidden="true"></i></Link>
+            <Link to="/"><i className={`fa-solid fa-house ${styles.bottomHomeIcon}`} aria-hidden="true"></i></Link>
             <div className={styles.cartIcon}>
               {cartItems.length ? (
                 <div className={styles.number}>{cartItems.length}</div>
@@ -185,6 +204,7 @@ export const LandingPage = () => {
               )}
             <Link to="/cart"><i className={`fa fa-shopping-cart`}></i></Link>
             </div>
+            <Link className={`link ${styles.orderIcon}`} to="/order"><i className="fa-solid fa-bag-shopping"></i></Link>
             {GetToken() ? (
               <Link to="/id">
                 {userImg ? (
