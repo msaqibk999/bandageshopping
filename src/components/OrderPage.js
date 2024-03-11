@@ -122,9 +122,13 @@ export default function OrderPage() {
                                                     <img className={styles.productImg} src={product.image} alt="img" />
                                                 </div>
                                             ))}
-                                                <div className={styles.remaining}>
-                                                    +{item.meta.productInfo.length - 2}
-                                                </div>
+                                                {item.meta.productInfo.length > 2 ? (
+                                                    <div className={styles.remaining}>
+                                                        +{item.meta.productInfo.length - 2}
+                                                    </div>
+                                                ):(
+                                                    <></>
+                                                )}
                                         </div>
                                         <div className={styles.infoContainer}>
                                             <div className={styles.amount}><strong>Amount: </strong>${item.amount}</div>
