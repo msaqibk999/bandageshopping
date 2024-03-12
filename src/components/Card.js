@@ -12,6 +12,7 @@ export const Card = (props) => {
   const [text, setText] = useState("Add");
   const [cls, setCls] = useState("addbtn");
   const [isLoading, setIsLoading] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   let { cartItems, setCartItems } = useContext(CartContext);
 
   const navigate = useNavigate();
@@ -35,6 +36,14 @@ export const Card = (props) => {
       setCls("removebtn");
     }
   }, [state]);
+
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => {
+      setImageLoaded(true);
+    };
+    img.src = item.images[0];
+  }, [item.images]);
 
   const handlePoductClick = (item) => {
     const id = item.id;
@@ -92,7 +101,12 @@ export const Card = (props) => {
 
   return (
     <div className={styles.product} onClick={() => handlePoductClick(item)}>
-      <img src={item.images[0]} alt="img" className={styles.image} />
+      {imageLoaded ? (
+          <img src={item.images[0]} alt="img" className={styles.image} />
+      ):(
+          <div className={`${styles.image} ${styles.imageLoad}`}></div>
+      )}
+      
       <div className={styles.name}>{item.name}</div>
       <div className={styles.category}>{item.category}</div>
       <div className={styles.price}>${item.price}</div>

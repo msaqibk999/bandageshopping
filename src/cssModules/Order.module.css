@@ -45,6 +45,9 @@
     padding: 1.5rem 1rem;
     border-radius: 5px;
 }
+.product:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
 
 .infoContainer{
     display: flex;
