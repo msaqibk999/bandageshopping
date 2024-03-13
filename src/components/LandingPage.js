@@ -36,6 +36,7 @@ export const LandingPage = () => {
   const [isCartLoading, SetIsCartLoading] = useState(true);
   const [loading, setLoading] = useState(true);
   let [cartItems, setCartItems] = useState([]);
+  const [userImgLoaded, setUserImgLoaded] = useState(false);
 
   const pull_data = (data) => {
     setUserImg(data);
@@ -59,6 +60,14 @@ export const LandingPage = () => {
       setUserImg(userDetails.data[0].meta.image);
     }
   };
+
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => {
+      setUserImgLoaded(true);
+    };
+    img.src = userImg;
+  }, [userImg]);
 
   useEffect(() => {
     const token = GetToken();
@@ -96,11 +105,15 @@ export const LandingPage = () => {
               {GetToken() ? (
                   <Link to="/id">
                   {userImg ? (
-                    <img
-                    src={userImg}
-                    alt="dp"
-                    className={styles.image}
-                  />
+                    userImgLoaded ? (
+                      <img
+                      src={userImg}
+                      alt="dp"
+                      className={styles.image}
+                      />
+                    ) : (
+                      <i className={`fa fa-user`} style={{fontSize:"2rem", marginTop:"0.4rem" }}></i>
+                    )  
                   ):(
                     <i className={`fa fa-user`} style={{fontSize:"2rem", marginTop:"0.4rem" }}></i>
                   )}                  
@@ -208,11 +221,15 @@ export const LandingPage = () => {
             {GetToken() ? (
               <Link to="/id">
                 {userImg ? (
-                  <img
-                  src={userImg}
-                  alt="dp"
-                  className={styles.bottomImage}
-                />
+                  userImgLoaded ? (
+                    <img
+                      src={userImg}
+                      alt="dp"
+                      className={styles.bottomImage}
+                    />
+                  ) : (
+                    <i className={`fa fa-user ${styles.bottomIcon}`} style={{ marginRight: 8 }}></i>
+                  )
                 ) : (
                   <i className={`fa fa-user ${styles.bottomIcon}`} style={{ marginRight: 8 }}></i>
                 )}

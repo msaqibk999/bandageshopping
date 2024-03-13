@@ -211,13 +211,14 @@ th,td{
 }
 
 .bottomIcon{
-    margin-left: 4rem;
+    margin-left: 3rem;
     color: white;
+    font-size: 1.9rem;
 }
 
 .bottomImage{
-    height: 2rem;
-    width: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
     border-radius: 50%;
     margin-left: 3rem;
     margin-top: 0.5rem;
@@ -287,6 +288,14 @@ th,td{
         height: 130vw;
         width: 100vw;
         transform: scale(0.8);
+    }
+}
+
+@media screen and (max-width: 940px) {
+    .orderIcon{
+        margin: 0.49rem 0rem 0rem 3rem;
+        font-size: 1.6rem;
+        transform: scale(1.1);
     }
 }
 
