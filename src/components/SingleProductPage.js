@@ -87,8 +87,8 @@ const SingleProductPage = () => {
       if (result === "success") {
         setCls("removebtn");
         setText("Remove");
+        setCartItems(prevCartItems => [...prevCartItems, item]);
         setIsLoadingCart(false);
-        setCartItems([...cartItems, item]);
       }
     }
     if (text === "Remove") {
@@ -106,8 +106,8 @@ const SingleProductPage = () => {
       if (result === "success") {
         setCls("addbtn");
         setText("Add");
+        setCartItems(prevCartItems => prevCartItems.filter((product) => product.id !== item.id));
         setIsLoadingCart(false);
-        setCartItems(cartItems.filter((product) => product.id !== item.id));
       }
     }
   };

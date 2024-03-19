@@ -76,7 +76,7 @@ export default function OrderPage() {
         const res = await deleteOrderReq(token, id).then((res) => res.status);
 
         if(res === "success"){
-            setOrder(orders.filter((order) => order.id !== id));
+            setOrder(prevOrders => prevOrders.filter((order) => order.id !== id));
             setDeleting(null);
         }
         else if(res === "Blocked"){

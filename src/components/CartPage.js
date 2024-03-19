@@ -113,7 +113,7 @@ const CartPage = () => {
       navigate("/login");
     }
     if (result === "success") {
-      setCartItems(cartItems.filter((product) => product.id !== item.id));
+      setCartItems(prevCartItems => prevCartItems.filter((product) => product.id !== item.id));
       setDeleting(null);
     }
     setState(!state);

@@ -74,8 +74,8 @@ export const Card = (props) => {
       if (result === "success") {
         setCls("removebtn");
         setText("Remove");
+        setCartItems(prevCartItems => [...prevCartItems, item]);
         setIsLoading(false);
-        setCartItems([...cartItems, item]);
       }
     }
     if (text === "Remove") {
@@ -93,8 +93,8 @@ export const Card = (props) => {
       if (result === "success") {
         setCls("addbtn");
         setText("Add");
+        setCartItems(prevCartItems => prevCartItems.filter((product) => product.id !== item.id));
         setIsLoading(false);
-        setCartItems(cartItems.filter((product) => product.id !== item.id));
       }
     }
   };
