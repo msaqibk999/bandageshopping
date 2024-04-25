@@ -126,7 +126,7 @@ const LoginForm = () => {
           <br />
           <br />
           {loading ? (
-              <div className={styles.loaderContainer}><Loader containerHeight="2rem" loaderSize="1rem" borderSize="0.2rem" backgroundColor="#7343EE"/></div>
+              <div className={styles.loaderContainer}><Loader containerHeight="3.1rem" loaderSize="1rem" borderSize="0.2rem" backgroundColor="#7343EE"/></div>
           ):(
               <input
                 type="submit"

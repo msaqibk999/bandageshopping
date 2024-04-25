@@ -263,7 +263,7 @@ const CartPage = () => {
                 ref={ref}
               >
                 {placingOrder ? (
-                  <Loader containerHeight="0.7rem" loaderSize="1rem" borderSize="0.2rem" />
+                  <Loader containerHeight="1.2rem" loaderSize="1rem" borderSize="0.2rem" />
                 ):("Place Order")}
               </button>
               <span className={styles.notice}>

@@ -8,9 +8,14 @@
     margin: 2rem 0 0 8rem;
 }
 .input{
-    background-color: white;
-    border-radius: 5px;
-}
+    width: 400px;
+    height: 50px;
+    background-color: rgb(233, 232, 232);
+    border: none;
+    margin: 10px 10px 10px 48px;
+    padding: 8px;
+    font-size: 20px;
+  }
 .mainContainer{
     display: flex;
     flex-direction: column;
@@ -95,8 +100,8 @@
 }
 .imageDiv{
   margin-top: 3rem;
-  width: 12rem;
-  height: 12rem;
+  width: 12.2rem;
+  height: 12.2rem;
   border-radius: 50%;
   border-style: solid;
   border-color: #FFFFFF;

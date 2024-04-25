@@ -1,7 +1,7 @@
-import React, { useState, useEffect, createContext, Suspense } from "react";
+import React, { useState, useEffect, createContext, Suspense, useRef } from "react";
 import styles from "../cssModules/LandingPage.module.css";
 import { Link } from "react-router-dom";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import ScrollToTop from "../utils/ScrollToTop";
 import { GetToken } from "../utils/Login_logoutUser";
@@ -20,7 +20,6 @@ const OrderPage = React.lazy(() => import('./OrderPage'));
 const PlaceOrderPage = React.lazy(() => import('./PlaceOrderPage'));
 const loaderContainerLength = window.innerWidth <= 1024 ? '100vw' : '44vw';
 
-
 async function getUser(token) {
   const res = await fetch(baseUrl+"/user/get-by-id", {
     headers: { "Content-Type": "application/json", token: token },
@@ -33,10 +32,15 @@ export const CartContext = createContext({});
 
 export const LandingPage = () => {
   const [userImg, setUserImg] = useState(null);
-  const [isCartLoading, SetIsCartLoading] = useState(true);
+  const [isCartLoading, setIsCartLoading] = useState(true);
   const [loading, setLoading] = useState(true);
-  let [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const [userImgLoaded, setUserImgLoaded] = useState(false);
+  const[showInput, setShowInput] = useState(false);
+  const inputRef = useRef(null);
+  const [products, setProducts] = useState([]);
+  const [isProductsLoading, setIsProductsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const pull_data = (data) => {
     setUserImg(data);
@@ -61,6 +65,11 @@ export const LandingPage = () => {
     }
   };
 
+  const handleSearchClick = () => {
+    navigate("/");
+    setShowInput(true);
+  }
+
   useEffect(() => {
     const img = new Image();
     img.onload = () => {
@@ -77,18 +86,38 @@ export const LandingPage = () => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
+
+    // Fetch Product List
+    fetch(baseUrl+"/product/get-list")
+    .then((response) => response.json())
+    .then((result) => {
+      setIsProductsLoading(false)
+      setProducts(result.products);
+    });
+
+    // Fetch cart items
+    const fetchCart = async () => {
+      if (GetToken()) {
+        const cartData = await GetCart();
+        setIsCartLoading(false);
+        setCartItems(cartData);
+      }
+    };
+    fetchCart();
   }, []);
 
   useEffect(() => {
-    (async () => {
-      if (GetToken()) {
-        await GetCart().then((res) => {
-          SetIsCartLoading(false);
-          setCartItems(res);
-          return res;
-        });
+    const handleClickOutside = (e) => {
+      if (inputRef.current && !inputRef.current.contains(e.target)) {
+        setShowInput(false);
       }
-    })();
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   return (
@@ -100,6 +129,9 @@ export const LandingPage = () => {
             Bandage
           </strong>
           </Link>
+
+          <i className={`${styles.searchIcon} fa-solid fa-magnifying-glass`} onClick={handleSearchClick}></i>
+            
           <div className={styles.icons}>
             <div>
               {GetToken() ? (
@@ -112,10 +144,10 @@ export const LandingPage = () => {
                       className={styles.image}
                       />
                     ) : (
-                      <i className={`fa fa-user`} style={{fontSize:"2rem", marginTop:"0.4rem" }}></i>
+                      <i className={`fa fa-user`} style={{fontSize:"2rem", margin:"0.4rem 0.35rem 0.5rem 0.35rem" }}></i>
                     )  
                   ):(
-                    <i className={`fa fa-user`} style={{fontSize:"2rem", marginTop:"0.4rem" }}></i>
+                    <i className={`fa fa-user`} style={{fontSize:"2rem", margin:"0.4rem 0.35rem 0.5rem 0.35rem" }}></i>
                   )}                  
                   </Link>
               ) : (
@@ -143,12 +175,12 @@ export const LandingPage = () => {
         {loading ? (
           <div className={styles.logoContainer}><img className={styles.bandageLogo} src={BandageLogo} alt=""/></div>
         ) : (
-              <div className={styles.productsContainer}>
+              <>
               <CartContext.Provider value={{ cartItems, setCartItems, isCartLoading }}>
                 <ScrollToTop>
                   <Suspense fallback={<Loader containerHeight={loaderContainerLength} loaderSize="2.5rem" borderSize="0.4rem"/>}>
                     <Routes>
-                      <Route path="/" element={<AllProductsComponent />} />
+                      <Route path="/" element={<AllProductsComponent products={products} isProductLoading={isProductsLoading} showSearchBar={showInput} inputRef={inputRef}/>} />
                       <Route path="/product/:id" element={<SingleProductPage />} />
                       <Route path="/cart" element={<CartPage />} />
                       <Route path="/id" element={<IdPage func={pull_data} />} />
@@ -160,7 +192,7 @@ export const LandingPage = () => {
                   </Suspense>
                 </ScrollToTop>
               </CartContext.Provider>
-            </div>
+            </>
         )}
         <footer className={styles.displayFooter}>
           <div className={styles.footerHeading}>
@@ -204,7 +236,6 @@ export const LandingPage = () => {
           </div>
           <br />
           <br />
-          <strong>Made with love by Saqib Khan</strong>
         </footer>
         <div className={styles.displayBottomNav}>
           <div className={styles.mobileBottomNaveContainer}>

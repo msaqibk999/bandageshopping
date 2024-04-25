@@ -1,30 +1,28 @@
-form{
+.registerationFormContainer form{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: bold;
     font-size: x-large;
-    margin-left: 40px;  
   }
   .heading{
     display: flex;
     align-items: center;
     font-size: 1.2em;
   }
-  input{
+  .registerationFormContainer input{
     width: 400px;
-    height: 40px;
+    height: 50px;
     background-color: rgb(233, 232, 232);
     border: none;
     margin: 10px;
     padding: 8px;
     font-size: 20px;
   }
-  label{
+  .registerationFormContainer label{
     margin: 10px;
   }
   .signup{
-    background-color: rgb(115, 67, 238);
-    color: white;
-    width: 21em;
+    background-color: rgb(115, 67, 238) !important;
+    color: white !important;
   }
   .registerationFormContainer{
     display: flex;
@@ -47,21 +45,21 @@ form{
     font-size: 1em;
     cursor: pointer;
   }
-  .signup:hover{
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
   .loaderContainer{
-    margin: 0.5rem 0 0 0.6rem;
-    width: 26.1rem;
+    margin: 0.6rem 0 0.6rem 0.6rem;
+    width: 25rem;
+  }
+  .signup:hover, .loaderContainer:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
 
   @media screen and (max-width:500px) {
-    input{
+    .registerationFormContainer input{
       width: 300px;
       height: 30px;
       font-size: 15px;
     }
-    form{
+    .registerationFormContainer form{
       margin-left: 0px;
     }
     .loaderContainer{
@@ -72,10 +70,10 @@ form{
       height: 2.5rem;
       font-weight: 600;
     }
-    h1{
+    .registerationFormContainer h1{
       font-size: 2rem;
     }
-    label,strong{
+    .registerationFormContainer label,strong{
       font-size: 1.2rem;
     }
     .loginBtn{

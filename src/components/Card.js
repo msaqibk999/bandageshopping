@@ -115,7 +115,7 @@ export const Card = (props) => {
         onClick={(event) => handleButtonClick(event, item)}
       >
         {isLoading ? (
-          <Loader containerHeight="0.78rem" loaderSize="0.9rem" borderSize="0.2rem"/>
+          <Loader containerHeight="1rem" loaderSize="0.9rem" borderSize="0.2rem"/>
         ):(text)}
       </button>
     </div>
