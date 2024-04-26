@@ -108,7 +108,11 @@ export const LandingPage = () => {
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (inputRef.current && !inputRef.current.contains(e.target)) {
+      if (
+        inputRef.current &&
+        !inputRef.current.contains(e.target) &&
+        e.target.id !== 'options'
+      ) {
         setShowInput(false);
       }
     };

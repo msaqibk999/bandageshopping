@@ -17,7 +17,6 @@ const SingleProductPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingCart, setIsLoadingCart] = useState(false);
   const loaderContainerLength = window.innerWidth <= 1024 ? '100vw' : '44vw';
-  const buttonLoaderContainerLength = window.innerWidth <= 1024 ? '1rem' : '0.8rem';
 
   let { id } = useParams();
   const navigate = useNavigate();
@@ -148,7 +147,7 @@ const SingleProductPage = () => {
               onClick={(event) => handleButtonClick(event, product)}
             >
               {isLoadingCart ? (
-                <Loader containerHeight={buttonLoaderContainerLength} loaderSize="1rem" borderSize="0.2rem"/>
+                <Loader containerHeight="1.2rem" loaderSize="1.2rem" borderSize="0.2rem"/>
               ):(text)}
             </button>
             <div className={styles.bottomIcons}>

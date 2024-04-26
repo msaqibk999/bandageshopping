@@ -13,6 +13,7 @@ const AllProductsComponent = ({products, isProductLoading ,showSearchBar, inputR
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [suggestions, setSuggestions] = useState([]);
   const [search, setSearch] = useState("");
+  const [selectedOption, setSelectedOption] = useState('');
   const loaderContainerLength = window.innerWidth <= 1024 ? '100vw' : '44vw';
   const navigate = useNavigate();
 
@@ -38,9 +39,30 @@ const AllProductsComponent = ({products, isProductLoading ,showSearchBar, inputR
     })();
   }, [setCartItems]);
 
-  const handleSearch = (event) => {
-    const value = event.target.value;
-    setSearch(value);
+  const handleOptionChange = (event) => {
+    const option = event.target.value;
+    setSelectedOption(option);   
+    let sortedProducts = [...filteredProducts];
+    if (option === "option1") {
+      setFilteredProducts(products);
+      return;
+    } else if (option === "option2") {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (option === "option3") {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    }
+    setFilteredProducts(sortedProducts);
+  }
+
+  const debounce = (func, timeout = 300) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+  }
+
+  const searchFunction = (value) => {
     if (value.trim() === "") {
       setSuggestions([]);
       setFilteredProducts(products);
@@ -48,6 +70,14 @@ const AllProductsComponent = ({products, isProductLoading ,showSearchBar, inputR
     }
     const newList = filter(value);
     setSuggestions(newList);
+  }
+
+  const debouncedsearchFunction = debounce(searchFunction, 500);
+
+  const handleSearch = (event) => {
+    const value = event.target.value;
+    setSearch(value);
+    debouncedsearchFunction(value);
   };
 
   const handleSubmit = (event) => {
@@ -90,7 +120,7 @@ const AllProductsComponent = ({products, isProductLoading ,showSearchBar, inputR
                       className={styles.searchBar}
                   />
                   {suggestions.length > 0 && (
-                          suggestions.slice(0, 4).map((product) => (
+                          suggestions.slice(0, 5).map((product) => (
                               <div
                                   key={product.id}
                                   className={styles.suggestion}
@@ -111,7 +141,15 @@ const AllProductsComponent = ({products, isProductLoading ,showSearchBar, inputR
     </div>
   ):(
     productList.length ? (
+      <div className={styles.allProductsContainer}>
+              <select id="options" value={selectedOption} onChange={handleOptionChange} className={styles.sort} ref={inputRef}>
+              <option value="" disabled hidden> Sort by </option>
+                <option value="option1">Featured</option>
+                <option value="option2">Price low to high</option>
+                <option value="option3">Price high to low</option>
+              </select>
       <div className={styles.productsContainer}> {productList} </div>
+      </div>
     ) : (
       <h2 className={styles.empty}>No Product Matched</h2>
     )
