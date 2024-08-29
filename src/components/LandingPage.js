@@ -9,6 +9,7 @@ import { GetCart } from "../utils/GetCart";
 import NoMatchPage from "./NoMatchPage";
 import { LogOutUser } from "../utils/Login_logoutUser";
 import BandageLogo from "../bandageLogo.png"
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 const AllProductsComponent = React.lazy(() => import('./AllProductsComponent'));
@@ -111,18 +112,19 @@ export const LandingPage = () => {
       if (
         inputRef.current &&
         !inputRef.current.contains(e.target) &&
-        e.target.id !== 'options'
+        e.target.id !== 'options' &&
+        !inputRef.current.contains(document.activeElement)
       ) {
         setShowInput(false);
       }
     };
-
+  
     document.addEventListener('mousedown', handleClickOutside);
-
+  
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [inputRef, setShowInput]);
 
   return (
     <>
@@ -134,7 +136,7 @@ export const LandingPage = () => {
           </strong>
           </Link>
 
-          <i className={`${styles.searchIcon} fa-solid fa-magnifying-glass`} onClick={handleSearchClick}></i>
+          <i data-testid="search-element" className={`${styles.searchIcon} fa-solid fa-magnifying-glass`} onClick={handleSearchClick}></i>
             
           <div className={styles.icons}>
             <div>
@@ -187,10 +189,12 @@ export const LandingPage = () => {
                       <Route path="/" element={<AllProductsComponent products={products} isProductLoading={isProductsLoading} showSearchBar={showInput} inputRef={inputRef}/>} />
                       <Route path="/product/:id" element={<SingleProductPage />} />
                       <Route path="/cart" element={<CartPage />} />
-                      <Route path="/id" element={<IdPage func={pull_data} />} />
-                      <Route path="/place-order" element={<PlaceOrderPage />} />
-                      <Route path="/order" element={<OrderPage />}/>
-                      <Route path="/edit" element={<EditIdPage func={pull_data} />} />
+                      <Route path="/order" element={<OrderPage />}/>                   
+                      <Route element={<ProtectedRoutes />}>
+                        <Route path="/id" element={<IdPage func={pull_data} />} />
+                        <Route path="/edit" element={<EditIdPage func={pull_data} />} />
+                        <Route path="/place-order" element={<PlaceOrderPage />} /> 
+                      </Route>
                       <Route path="/*" element={<NoMatchPage />} />
                     </Routes>
                   </Suspense>

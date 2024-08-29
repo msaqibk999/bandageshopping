@@ -1,0 +1,185 @@
+[
+    {
+        "id": "004e0810-5c25-11e9-98be-e44f7fd90128",
+        "name": "skirt",
+        "category": "apparel",
+        "price": "500",
+        "meta": {
+            "description": "skirt"
+        },
+        "createdAt": 1665399749619,
+        "updatedAt": null,
+        "availableUnits": 0,
+        "images": [
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-1-img1674544600019-76.png"
+        ]
+    },
+    {
+        "id": "0006b580-1565-11e8-914f-0e4ec8d2b49b",
+        "name": "parker pen",
+        "category": "stationary",
+        "price": "100",
+        "meta": {
+            "description": "smooth writing pen"
+        },
+        "createdAt": 1665399749619,
+        "updatedAt": null,
+        "availableUnits": 27,
+        "images": [
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-1-img1674544600019-76.png"
+        ]
+    },
+    {
+        "id": "0003ff50-46f3-11e9-b503-ae367286486e",
+        "name": "rough notebook 2",
+        "category": "stationary",
+        "price": "110",
+        "meta": {
+            "description": "rough notebook with 200 pages"
+        },
+        "createdAt": 1665399749619,
+        "updatedAt": null,
+        "availableUnits": 2,
+        "images": [
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-3-img1674543811895-96.png",
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-1-img1674544600019-76.png",
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-img1674544958054-57.png",
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-4-img1674545784239-82.png"
+        ]
+    },
+    {
+        "id": "000188d0-f2f5-11e8-8455-f8eaa65f090a",
+        "name": "rough notebook 1",
+        "category": "stationary",
+        "price": "100",
+        "meta": {
+            "description": "rough notebook with 100 pages"
+        },
+        "createdAt": 1665399749619,
+        "updatedAt": null,
+        "availableUnits": 14,
+        "images": [
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-1-img1674544600019-76.png"
+        ]
+    },
+    {
+        "id": "19b40814-9bb8-11ed-a8fc-0242ac120002",
+        "name": "jacket",
+        "category": "apparel",
+        "price": "1005",
+        "meta": {
+            "description": "parka jacket mens"
+        },
+        "createdAt": 1674545163870,
+        "updatedAt": null,
+        "availableUnits": 21,
+        "images": [
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-4-img1674545784239-82.png"
+        ]
+    },
+    {
+        "id": "19b3fc34-9bb8-11ed-a8fc-0242ac120002",
+        "name": "jacket",
+        "category": "apparel",
+        "price": "105",
+        "meta": {
+            "description": "faishonable jacket with strips"
+        },
+        "createdAt": 1674545163870,
+        "updatedAt": null,
+        "availableUnits": 1,
+        "images": [
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-1-img1674544600019-76.png"
+        ]
+    },
+    {
+        "id": "19b40c88-9bb8-11ed-a8fc-0242ac120002",
+        "name": "jacket",
+        "category": "apparel",
+        "price": "1005",
+        "meta": {
+            "description": "parka jacket mens"
+        },
+        "createdAt": 1674545163870,
+        "updatedAt": null,
+        "availableUnits": 9,
+        "images": [
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-4-img1674545784239-82.png"
+        ]
+    },
+    {
+        "id": "19b400b2-9bb8-11ed-a8fc-0242ac120002",
+        "name": "jacket",
+        "category": "apparel",
+        "price": "105",
+        "meta": {
+            "description": "faishonable jacket with strips"
+        },
+        "createdAt": 1674545163870,
+        "updatedAt": null,
+        "availableUnits": 0,
+        "images": [
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-1-img1674544600019-76.png"
+        ]
+    },
+    {
+        "id": "19b40594-9bb8-11ed-a8fc-0242ac120002",
+        "name": "jacket",
+        "category": "apparel",
+        "price": "105",
+        "meta": {
+            "description": "faishonable jacket with strips"
+        },
+        "createdAt": 1674545163870,
+        "updatedAt": null,
+        "availableUnits": 5,
+        "images": [
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-1-img1674544600019-76.png"
+        ]
+    },
+    {
+        "id": "19b40e7c-9bb8-11ed-a8fc-0242ac120002",
+        "name": "jacket",
+        "category": "apparel",
+        "price": "1005",
+        "meta": {
+            "description": "parka jacket mens"
+        },
+        "createdAt": 1674545163870,
+        "updatedAt": null,
+        "availableUnits": 24,
+        "images": [
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-4-img1674545784239-82.png"
+        ]
+    },
+    {
+        "id": "00487180-4f38-11e7-bd90-6b61ebf25dc3",
+        "name": "floral shirt",
+        "category": "apparel",
+        "price": "660",
+        "meta": {
+            "description": "floral shirt for beach trip"
+        },
+        "createdAt": 1665399749619,
+        "updatedAt": null,
+        "availableUnits": 22,
+        "images": [
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-1-img1674544600019-76.png"
+        ]
+    },
+    {
+        "id": "003dc160-fc5f-11e8-95eb-f93fb5597073",
+        "name": "shirt",
+        "category": "apparel",
+        "price": "500",
+        "meta": {
+            "description": "faishonable shirt with strips"
+        },
+        "createdAt": 1665399749619,
+        "updatedAt": null,
+        "availableUnits": 15,
+        "images": [
+            "https://gs-post-images.grdp.co/2023/1/product-cover-5-1-img1674544600019-76.png"
+        ]
+    }
+]

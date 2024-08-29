@@ -7,8 +7,8 @@ import { postIntoCart, deleteFromCart } from "../utils/Cart";
 import Loader from "./Loader";
 import { LogOutUser } from "../utils/Login_logoutUser";
 
-export const Card = (props) => {
-  const item = props.product;
+export const Card = ({ product }) => {
+  const item = product;
   const [text, setText] = useState("Add");
   const [cls, setCls] = useState("addbtn");
   const [isLoading, setIsLoading] = useState(false);
@@ -45,11 +45,6 @@ export const Card = (props) => {
     img.src = item.images[0];
   }, [item.images]);
 
-  const handlePoductClick = (item) => {
-    const id = item.id;
-    navigate("/product/" + id);
-  };
-
   const handleButtonClick = async (event, item) => {
     event.stopPropagation();
     setIsLoading(true);
@@ -74,7 +69,7 @@ export const Card = (props) => {
       if (result === "success") {
         setCls("removebtn");
         setText("Remove");
-        setCartItems(prevCartItems => [...prevCartItems, item]);
+        setCartItems((prevCartItems) => [...prevCartItems, item]);
         setIsLoading(false);
       }
     }
@@ -93,30 +88,38 @@ export const Card = (props) => {
       if (result === "success") {
         setCls("addbtn");
         setText("Add");
-        setCartItems(prevCartItems => prevCartItems.filter((product) => product.id !== item.id));
+        setCartItems((prevCartItems) =>
+          prevCartItems.filter((product) => product.id !== item.id)
+        );
         setIsLoading(false);
       }
     }
   };
 
   return (
-    <div className={styles.product} onClick={() => handlePoductClick(item)}>
+    <div className={styles.product} data-id={item?.id}>
       {imageLoaded ? (
-          <img src={item.images[0]} alt="img" className={styles.image} />
-      ):(
-          <div className={`${styles.image} ${styles.imageLoad}`}></div>
+        <img src={item?.images[0]} alt="img" className={styles.image} />
+      ) : (
+        <div className={`${styles.image} ${styles.imageLoad}`}></div>
       )}
-      
-      <div className={styles.name}>{item.name}</div>
-      <div className={styles.category}>{item.category}</div>
-      <div className={styles.price}>${item.price}</div>
+
+      <div className={styles.name}>{item?.name}</div>
+      <div className={styles.category}>{item?.category}</div>
+      <div className={styles.price}>${item?.price}</div>
       <button
         className={cls}
         onClick={(event) => handleButtonClick(event, item)}
       >
         {isLoading ? (
-          <Loader containerHeight="1rem" loaderSize="0.9rem" borderSize="0.2rem"/>
-        ):(text)}
+          <Loader
+            containerHeight="1rem"
+            loaderSize="0.9rem"
+            borderSize="0.2rem"
+          />
+        ) : (
+          text
+        )}
       </button>
     </div>
   );

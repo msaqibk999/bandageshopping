@@ -1,0 +1,15 @@
+{
+    "id": "004e0810-5c25-11e9-98be-e44f7fd90128",
+    "name": "skirt",
+    "category": "apparel",
+    "price": "500",
+    "meta": {
+        "description": "skirt"
+    },
+    "createdAt": 1665399749619,
+    "updatedAt": null,
+    "availableUnits": 0,
+    "images": [
+        "https://gs-post-images.grdp.co/2023/1/product-cover-5-1-img1674544600019-76.png"
+    ]
+}
