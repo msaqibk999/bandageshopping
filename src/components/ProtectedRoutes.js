@@ -7,6 +7,7 @@ const ProtectedRoutes = () => {
 
   useEffect(() => {
     if(!GetToken()) navigate("/login");
+    // eslint-disable-next-line
   },[])
 
   return <>{GetToken() ? <Outlet /> : null}</>;

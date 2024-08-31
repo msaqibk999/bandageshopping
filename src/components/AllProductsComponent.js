@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { GetCart } from "../utils/GetCart";
 import { GetToken } from "../utils/Login_logoutUser";
@@ -64,27 +64,34 @@ const AllProductsComponent = ({
     return (...args) => {
       clearTimeout(timer);
       timer = setTimeout(() => {
-        func.apply(this, args);
+        func(...args);
       }, timeout);
     };
   };
 
-  const searchFunction = (value) => {
-    if (value.trim() === "") {
-      setSuggestions([]);
-      setFilteredProducts(products);
-      return;
-    }
-    const newList = filter(value);
-    setSuggestions(newList);
-  };
+  const searchFunction = useCallback(
+    (value) => {
+      if (value.trim() === "") {
+        setSuggestions([]);
+        setFilteredProducts(products);
+        return;
+      }
+      const newList = filter(value);
+      setSuggestions(newList);
+    },
+    // eslint-disable-next-line
+    [products]
+  );
 
-  const debouncedsearchFunction = debounce(searchFunction, 500);
+  // eslint-disable-next-line
+  const debouncedSearchFunction = useCallback(debounce(searchFunction, 500), [
+    searchFunction,
+  ]);
 
   const handleSearch = (event) => {
     const value = event.target.value;
     setSearch(value);
-    debouncedsearchFunction(value);
+    debouncedSearchFunction(value);
   };
 
   const handleSubmit = (event) => {
